@@ -1,45 +1,45 @@
-NAME					=	minishell
+NAME				=	minishell
 
-SOURCES					=	minishell.c
+SOURCES				=	minishell.c
 
-LIBFT_DIR				=	libft
-SOURCES_DIR				=	sources
-INCLUDE_DIR				=	include
-BUILD_DIR				=	build
+LIBFT_DIR			=	libft
+SOURCES_DIR			=	sources
+INCLUDE_DIR			=	include
+BUILD_DIR			=	build
 
-CC						=	cc
-CFLAGS					=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g
-RM						=	rm -rf
-MKDIR					=	mkdir -p
+CC					=	cc
+CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g
+RM					=	rm -rf
+MKDIR				=	mkdir -p
 
-LIBFT					=	$(LIBFT_DIR)/libft.a
-OBJECTS					=	$(addprefix $(BUILD_DIR)/,$(SOURCES:.c=.o))
-DEPENDENCIES			=	$(OBJECTS:.o=.d)
+LIBFT				=	$(LIBFT_DIR)/libft.a
+OBJECTS				=	$(addprefix $(BUILD_DIR)/,$(SOURCES:.c=.o))
+DEPENDENCIES		=	$(OBJECTS:.o=.d)
 
-all						:	$(NAME)
+all					:	$(NAME)
 
--include 					$(DEPENDENCIES)
+-include 				$(DEPENDENCIES)
 
-$(LIBFT)				:	FORCE
+$(LIBFT)			:	FORCE
 	$(MAKE) -C	$(LIBFT_DIR)
 
-$(BUILD_DIR)/%.o		:	$(SOURCES_DIR)/%.c
+$(BUILD_DIR)/%.o	:	$(SOURCES_DIR)/%.c
 	@$(MKDIR) $(@D)
 	$(CC) $(CFLAGS) -o $@ -c	$<
 
-$(NAME)					:	$(OBJECTS) $(LIBFT)
+$(NAME)				:	$(OBJECTS) $(LIBFT)
 	$(CC) $(CFLAGS) -o $@ $^
 
-clean					:
+clean				:
 	$(MAKE) -C	$(LIBFT_DIR) $@
 	$(RM) $(BUILD_DIR)
 
-fclean					:
+fclean				:
 	$(MAKE) -C	$(LIBFT_DIR) $@
 	$(RM) $(BUILD_DIR) $(NAME)
 
-re						:	fclean all
+re					:	fclean all
 
-FORCE					:
+FORCE				:
 
-.PHONY					:	all clean fclean re FORCE
+.PHONY				:	all clean fclean re FORCE
