@@ -1,0 +1,20 @@
+name: Lint
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  norminette:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install `norminette`
+        run: python3 -m pip install norminette
+      - uses: actions/checkout@v4
+      - run: norminette
