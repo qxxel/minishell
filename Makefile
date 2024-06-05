@@ -9,6 +9,7 @@ BUILD_DIR			=	build
 
 CC					=	cc
 CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g
+LFLAGS				=	-lreadline
 RM					=	rm -rf
 MKDIR				=	mkdir -p
 
@@ -28,7 +29,7 @@ $(BUILD_DIR)/%.o	:	$(SOURCES_DIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c	$<
 
 $(NAME)				:	$(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $^
 
 clean				:
 	$(MAKE) -C	$(LIBFT_DIR) $@
