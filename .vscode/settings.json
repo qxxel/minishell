@@ -1,0 +1,9 @@
+{
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/deydoux/42cursus/minishell",
+			"binaryPath": "/home/deydoux/42cursus/minishell/minishell",
+			"binaryArgs": []
+		}
+	]
+}
