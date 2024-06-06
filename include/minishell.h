@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/05 13:17:01 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:22:17 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 # include <termios.h>
 # include <unistd.h>
 # include "libft.h"
+# include "msh_types.h"
 
 #endif
