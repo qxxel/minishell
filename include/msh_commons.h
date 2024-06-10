@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_includes.h                                     :+:      :+:    :+:   */
+/*   msh_commons.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/06 14:18:18 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:44:53 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_INCLUDES_H
-# define MSH_INCLUDES_H
+#ifndef MSH_COMMONS_H
+# define MSH_COMMONS_H
 
 # include <dirent.h>
 # include <fcntl.h>

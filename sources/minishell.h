@@ -6,14 +6,14 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/06 14:32:15 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:45:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "msh_includes.h"
+# include "msh_commons.h"
 
 bool	parse_cmds(char *str);
 
