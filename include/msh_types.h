@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/10 16:46:11 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:31:00 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ typedef struct s_cmd
 	char			*in;
 	char			*out;
 	int				append;
-	struct s_cmd	*and;
-	struct s_cmd	*cmds;
-	struct s_cmd	*or;
-	struct s_cmd	*pipe;
 }	t_cmd;
 
 #endif
