@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/10 16:44:53 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:51:41 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@
 
 # include "libft.h"
 # include "msh_types.h"
+
+t_cmd	*init_cmds_example(void);
 
 #endif
