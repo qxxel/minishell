@@ -1,7 +1,8 @@
 NAME				=	minishell
 
-SOURCES				=	init_cmds_example.c	\
-						minishell.c
+SOURCES				=	init_cmds_example.c			\
+						minishell.c					\
+						parse_cmds/split_cmd_str.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources
