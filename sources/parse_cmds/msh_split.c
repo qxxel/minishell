@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd_str.c                                    :+:      :+:    :+:   */
+/*   msh_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:20 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/14 20:03:34 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/14 20:07:13 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static bool	init_strs(char *str, size_t n_str, char ***strs)
 	return (false);
 }
 
-bool	split_cmd_str(char *str, char ***strs)
+bool	msh_split(char *str, char ***strs)
 {
 	return (init_strs(str, 0, strs));
 }
