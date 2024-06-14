@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/14 20:06:13 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/14 20:09:51 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	strs = NULL;
-	split_cmd_str(str, &strs);
-	if (!strs)
+	if (split_cmd_str(str, &strs))
 		return (EXIT_FAILURE);
 	i = 0;
 	while (strs[i])
