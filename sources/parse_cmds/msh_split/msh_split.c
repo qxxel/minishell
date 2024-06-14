@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   msh_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/14 21:21:15 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/12 15:07:20 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/14 20:40:58 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "msh_split.h"
 
-bool	msh_split(char *str, char ***strs);
-
-int	main(int argc, char **argv, char **envp)
+bool	msh_split(char *str, char ***strs)
 {
-	char	**strs;
-	char	*str;
-	size_t	i;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	str = ft_strdup("echo 'Hello'\"\\\"\\'\\\"World\" | cat -e >> my_outf\
-ile | wc");
-	if (msh_split(str, &strs))
-		return (EXIT_FAILURE);
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-	return (EXIT_SUCCESS);
+	return (msh_split_init(str, 0, strs));
 }
