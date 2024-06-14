@@ -71,7 +71,7 @@ SOURCES				=	free_nptr.c					\
 						get_next_line.c
 
 CC					=	cc
-CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror
+CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g
 AR					=	ar
 ARFLAGS				=	-c -r -s
 RM					=	rm -rf
