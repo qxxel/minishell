@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:20 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/14 17:37:41 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/14 20:03:34 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static bool	init_strs(char *str, size_t n_str, char ***strs)
 {
-	bool	backslash;
 	char	quote;
 	size_t	len;
 
@@ -35,30 +34,35 @@ static bool	init_strs(char *str, size_t n_str, char ***strs)
 		str++;
 	else
 	{
-		backslash = false;
-		quote = 0;
-		while (*str && ((*str != ' ' && *str != '|') || backslash || quote))
+		while (*str && *str != ' ' && *str != '|')
 		{
-			if (backslash)
-				;
-			else if (!quote && (*str == '"' || *str == '\''))
-				quote = *str;
-			else if (*str == quote)
-				quote = 0;
+			if (*str == '\\')
+			{
+				if (!*(++str))
+				{
+					ft_putstr_fd(UNEXPECTED_EOF_ERROR, STDERR_FILENO);
+					return (true);
+				}
+				len++;
+			}
+			else if (*str == '"' || *str == '\'')
+			{
+				quote = *(str++);
+				while (*str != quote || *(str - 1) == '\\')
+				{
+					if (!*(str++))
+					{
+						ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, quote);
+						return (true);
+					}
+					len++;
+				}
+			}
 			else
 				len++;
-			backslash = !backslash && *(str++) == '\\';
+			str++;
 		}
-		if (backslash)
-		{
-			ft_putstr_fd(UNEXPECTED_EOF_ERROR, STDERR_FILENO);
-			return (true);
-		}
-		else if (quote)
-		{
-			ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, quote);
-			return (true);
-		}
+		printf("str[%zu] + \"%s\"\n", len, str);
 	}
 	if (init_strs(str, n_str + 1, strs))
 		return (true);
