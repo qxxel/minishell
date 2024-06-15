@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/15 17:42:37 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/15 18:28:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ bool	mark_quotes(char *str)
 	char	quote;
 	size_t	i;
 
+	quote = 0;
 	i = -1;
 	while (str[++i])
 	{
