@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/14 21:21:15 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:54:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	str = ft_strdup("echo 'Hello'\"\\\"\\'\\\"World\" | cat -e >> my_outf\
-ile | wc");
+	str = ft_strdup("echo \"Hello\"'World' '' | cat -e >> my_outfile | wc");
 	if (msh_split(str, &strs))
 		return (EXIT_FAILURE);
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
+	free(str);
+	i = -1;
+	while (strs[++i])
+	{
+		printf("%s\n", strs[i]);
+		free(strs[i]);
+	}
 	free(strs);
 	return (EXIT_SUCCESS);
 }
