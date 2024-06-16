@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmds.c                                       :+:      :+:    :+:   */
+/*   join_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 17:43:32 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 17:00:39 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/16 17:43:26 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	parse_cmds(char *str, t_cmd **cmds)
+bool	join_quotes(char **strs)
 {
+	char	*str;
 	size_t	i;
-	char	**strs;
 
-	if (mark_quotes(str) || msh_split(str, &strs))
-		return (true);
-	remove_quotes(strs);
-	if (join_quotes(strs))
-		return (true);
-	i = -1;
+	i = 0;
 	while (strs[++i])
 	{
-		printf("%s;\n", strs[i]);
-		free(strs[i]);
+		if (ft_strchr(SEPARATORS, strs[i - 1][0])
+			|| ft_strchr(SEPARATORS, strs[i][0]))
+			continue ;
+		str = ft_strjoin(strs[i - 1], strs[i]);
+		if (!str)
+		{
+			perror("malloc");
+			return (true);
+		}
+		shift_strs(&strs[i - 1]);
+		free(strs[i - 1]);
+		strs[i - 1] = str;
 	}
-	free(strs);
 	return (false);
-	(void)cmds;
 }
