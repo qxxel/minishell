@@ -4,7 +4,8 @@ SOURCES				=	init_cmds_example.c			\
 						minishell.c					\
 						parse_cmds/mark_quotes.c	\
 						parse_cmds/msh_split.c		\
-						parse_cmds/parse_cmds.c
+						parse_cmds/parse_cmds.c		\
+						parse_cmds/shift_strs.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources

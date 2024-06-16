@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/15 17:42:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/16 16:59:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ file\n"
 
 bool	mark_quotes(char *str);
 bool	msh_split(char *str, char ***strs);
+void	shift_strs(char **strs);
 
 #endif
