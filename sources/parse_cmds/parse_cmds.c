@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 17:08:48 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:27:43 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	parse_cmds(char *str, t_cmd **cmds)
 
 	if (mark_quotes(str) || msh_split(str, &strs))
 		return (true);
-	ignore_empty_quotes(strs);
+	remove_quotes(strs);
 	i = -1;
 	while (strs[++i])
 	{
