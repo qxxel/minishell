@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmds.c                                       :+:      :+:    :+:   */
+/*   remove_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 17:46:34 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 17:44:37 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/16 17:45:56 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	parse_cmds(char *str, t_cmd **cmds)
+void	remove_spaces(char **strs)
 {
 	size_t	i;
-	char	**strs;
 
-	if (mark_quotes(str) || msh_split(str, &strs))
-		return (true);
-	remove_quotes(strs);
-	if (join_quotes(strs))
-		return (true);
-	remove_spaces(strs);
-	i = -1;
-	while (strs[++i])
+	i = 0;
+	while (strs[i])
 	{
-		printf("%s;\n", strs[i]);
-		free(strs[i]);
+		if (strs[i][0] == ' ')
+			shift_strs(&strs[i]);
+		else
+			i++;
 	}
-	free(strs);
-	return (false);
-	(void)cmds;
 }
