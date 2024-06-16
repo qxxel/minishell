@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parse_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 16:44:37 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/16 16:44:16 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "parse_cmds.h"
 
-# include "msh_commons.h"
+bool	parse_cmds(char *str, t_cmd **cmds)
+{
+	char	**strs;
 
-bool	parse_cmds(char *str, t_cmd **cmds);
-
-#endif
+	if (mark_quotes(str) || msh_split(str, &strs))
+		return (true);
+	return (false);
+	(void)cmds;
+}
