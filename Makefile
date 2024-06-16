@@ -8,7 +8,8 @@ SOURCES				=	init_cmds_example.c			\
 						parse_cmds/parse_cmds.c		\
 						parse_cmds/remove_quotes.c	\
 						parse_cmds/remove_spaces.c	\
-						parse_cmds/shift_strs.c
+						parse_cmds/shift_strs.c		\
+						parse_cmds/unmark_strs.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources

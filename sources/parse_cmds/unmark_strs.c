@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmds.c                                       :+:      :+:    :+:   */
+/*   unmark_strs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 19:31:35 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 19:28:17 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/16 19:30:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	parse_cmds(char *str, t_cmd **cmds)
+static void	unmark_str(char *str)
 {
 	size_t	i;
-	char	**strs;
 
-	if (mark_quotes(str) || msh_split(str, &strs))
-		return (true);
-	remove_quotes(strs);
-	if (join_quotes(strs))
-		return (true);
-	remove_spaces(strs);
-	unmark_strs(strs);
+	i = -1;
+	while (str[++i])
+		if (str[i] < 0)
+			str[i] *= -1;
+}
+
+void	unmark_strs(char **strs)
+{
+	size_t	i;
+
 	i = -1;
 	while (strs[++i])
-	{
-		printf("%s;\n", strs[i]);
-		free(strs[i]);
-	}
-	free(strs);
-	return (false);
-	(void)cmds;
+		unmark_str(strs[i]);
 }
