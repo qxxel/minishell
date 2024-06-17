@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/11 16:33:46 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/17 17:43:20 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,18 @@ typedef struct s_cmd
 	char	*in;
 	char	*out;
 }	t_cmd;
+
+typedef struct s_msh_envp
+{
+	char				*key;
+	char				*val;
+	struct s_msh_envp	*next;
+}	t_msh_envp;
+
+typedef struct s_msh
+{
+	t_msh_envp	*envp;
+}	t_msh;
+
 
 #endif
