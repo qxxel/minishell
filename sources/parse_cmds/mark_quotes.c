@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/15 18:28:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/17 12:35:09 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	mark_quotes(char *str)
 	{
 		if (quote)
 		{
-			if (ft_strchr(QUOTES, str[i]))
+			if (str[i] == quote)
 				quote = 0;
 			else
 				str[i] *= -1;
