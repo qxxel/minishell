@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:28:17 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 19:30:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:01:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	unmark_str(char *str)
 
 	i = -1;
 	while (str[++i])
-		if (str[i] < 0)
+		if ((signed char)str[i] < 0)
 			str[i] *= -1;
 }
 
