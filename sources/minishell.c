@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/18 12:10:30 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:27:48 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	ft_bzero(&msh, sizeof(msh));
-	if (init_envp(envp, &msh))
+	if (init_env(envp, &msh))
 		return (EXIT_FAILURE);
 	str = ft_strdup("echo \"Hello\"'World' '' | cat -e >> my_outfile | wc");
 	parse_cmds(str, NULL);
