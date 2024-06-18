@@ -6,13 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/18 12:09:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:10:30 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	msh_split(char *str, char ***strs);
 
 int	main(int argc, char **argv, char **envp)
 {
