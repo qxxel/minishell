@@ -1,6 +1,7 @@
 NAME				=	minishell
 
 SOURCES				=	init_cmds_example.c			\
+						init_envp.c					\
 						minishell.c					\
 						parse_cmds/join_quotes.c	\
 						parse_cmds/mark_quotes.c	\
