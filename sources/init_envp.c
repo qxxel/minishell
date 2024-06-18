@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/18 11:56:35 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/17 17:44:08 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/17 17:45:52 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_cmd
+bool	init_envp(char **initial, t_msh	*msh)
 {
-	bool	append;
-	char	**argv;
-	char	*heredoc;
-	char	*in;
-	char	*out;
-}	t_cmd;
+	size_t	i;
 
-typedef struct s_msh
-{
-	t_list	*envp;
-}	t_msh;
+	i = -1;
 
-
-#endif
+}
