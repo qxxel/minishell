@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   expand_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/18 14:56:22 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/18 12:25:03 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "parse_cmds.h"
 
-# include "msh_commons.h"
-
-typedef struct s_cmd
+bool	expand_env_var(char *str)
 {
-	bool	append;
-	char	**argv;
-	char	*heredoc;
-	char	*in;
-	char	*out;
-}	t_cmd;
+	size_t	i;
+	size_t	size;
+	size_t	var_name_size;
 
-typedef struct s_msh
-{
-	t_list	*envp;
-}	t_msh;
+	i = -1;
+	size = 0;
+	var_name_size = 0;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+		{
 
-#endif
+		}
+		else
+			size++;
+	}
+}
