@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/18 18:01:18 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/18 17:46:18 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/18 18:05:43 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-char	*get_env_var(char *name, size_t len, t_list *env);
-bool	init_env(char **initial, t_msh	*msh);
-bool	parse_cmds(char *str, t_cmd **cmds);
-
-#endif
+char	*get_env_var(char *name, size_t len, t_list *env)
+{
+	if (!len)
+		len = ft_strlen(name);
+	while (env && (ft_strncmp(name, env->content, len)
+			|| ((char *)env->content)[len] != '='))
+		env = env->next;
+	if (!env)
+		return (NULL);
+	return (&env->content[len + 1]);
+}
