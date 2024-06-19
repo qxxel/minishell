@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 17:47:16 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:24:26 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static size_t	new_str_size(char *str, char **envp)
 	size = 0;
 	while (str[++i])
 	{
-		ft_putchar_fd(str[i], 1);
 		if (str[i] == '$')
 			size += var_size(&str[i + 1], &i, envp);
 		else
