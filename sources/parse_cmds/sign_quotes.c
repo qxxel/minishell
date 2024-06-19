@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 13:04:09 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:47:27 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	sign_quotes(char *str, char quote_type)
+bool	sign_quotes(char *str)
 {
 	char	quote;
 	size_t	i;
@@ -25,7 +25,7 @@ bool	sign_quotes(char *str, char quote_type)
 		{
 			if (str[i] == quote)
 				quote = 0;
-			else if (quote == quote_type)
+			else
 				str[i] *= -1;
 		}
 		else if (ft_strchr(QUOTES, str[i]))
