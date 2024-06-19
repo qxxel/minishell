@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 13:02:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:06:42 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	parse_cmds(char *str, t_cmd **cmds)
 	if (join_quotes(strs))
 		return (true);
 	remove_spaces(strs);
-	unmark_strs(strs);
+	unsign_strs(strs);
 	i = -1;
 	while (strs[++i])
 	{

@@ -10,7 +10,7 @@ SOURCES				=	get_env_var.c				\
 						parse_cmds/remove_spaces.c	\
 						parse_cmds/shift_strs.c		\
 						parse_cmds/sign_quotes.c	\
-						parse_cmds/unmark_strs.c
+						parse_cmds/unsign_strs.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources
