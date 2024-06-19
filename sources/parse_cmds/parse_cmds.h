@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 13:47:33 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:39:09 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ matching `%c'\nminishell: syntax error: unexpected end of file\n"
 # define UNEXPECTED_EOF_ERROR	"minishell: syntax error: unexpected end of \
 file\n"
 
+bool	expand_env(char **str, char **envp);
 bool	join_quotes(char **strs);
 bool	msh_split(char *str, char ***strs);
 void	remove_quotes(char **strs);
