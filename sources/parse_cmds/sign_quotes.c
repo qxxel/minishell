@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mark_quotes.c                                      :+:      :+:    :+:   */
+/*   sign_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/17 12:35:09 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:04:09 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	mark_quotes(char *str)
+bool	sign_quotes(char *str, char quote_type)
 {
 	char	quote;
 	size_t	i;
@@ -25,7 +25,7 @@ bool	mark_quotes(char *str)
 		{
 			if (str[i] == quote)
 				quote = 0;
-			else
+			else if (quote == quote_type)
 				str[i] *= -1;
 		}
 		else if (ft_strchr(QUOTES, str[i]))

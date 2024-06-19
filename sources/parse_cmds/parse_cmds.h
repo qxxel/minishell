@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 19:30:56 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:01:59 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ matching `%c'\nminishell: syntax error: unexpected end of file\n"
 file\n"
 
 bool	join_quotes(char **strs);
-bool	mark_quotes(char *str);
 bool	msh_split(char *str, char ***strs);
 void	remove_quotes(char **strs);
 void	remove_spaces(char **strs);
 void	shift_strs(char **strs);
+bool	sign_quotes(char *str, char quote_type);
 void	unmark_strs(char **strs);
 
 #endif
