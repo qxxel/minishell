@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:24:09 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:38:27 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 bool	parse_cmds(char *str, t_msh *msh)
 {
-	size_t	i;
+	bool	error;
 	char	**strs;
+	size_t	i;
 
-	if (sign_quotes(str) || expand_env(&str, msh->envp)
-		|| msh_split(str, &strs))
-		return (true);
-	remove_quotes(strs);
-	if (join_quotes(strs))
-		return (true);
-	remove_spaces(strs);
-	unsign_strs(strs);
-	i = -1;
-	while (strs[++i])
+	strs = NULL;
+	error = sign_quotes(str) || expand_env(&str, msh->envp)
+		|| msh_split(str, &strs) || remove_quotes(strs) || join_quotes(strs)
+		|| remove_spaces(strs) || unsign_strs(strs);
+	if (strs)
 	{
-		printf("%s\n", strs[i]);
-		free(strs[i]);
+		i = -1;
+		while (strs[++i])
+		{
+			printf("%s\n", strs[i]);
+			free(strs[i]);
+		}
+		free(strs);
 	}
-	free(strs);
-	return (false);
+	free(str);
+	return (error);
 }

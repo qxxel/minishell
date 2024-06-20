@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:03:40 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/16 17:26:55 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:35:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-void	remove_quotes(char **strs)
+bool	remove_quotes(char **strs)
 {
 	size_t	i;
 
@@ -24,4 +24,5 @@ void	remove_quotes(char **strs)
 		else
 			i++;
 	}
+	return (false);
 }
