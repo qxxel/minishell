@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   destroy_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:29:24 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/20 16:29:19 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "msh_commons.h"
+static void	destroy_envp(char **envp)
+{
+	size_t	i;
 
-void	destroy_msh(t_msh msh);
-bool	dup_envp(char **src, t_msh *msh);
-bool	parse_cmds(char *str, t_msh *msh);
+	i = -1;
+	while (envp[++i])
+		free(envp[i]);
+	free(envp);
+}
 
-#endif
+void	destroy_msh(t_msh msh)
+{
+	destroy_envp(msh.envp);
+}

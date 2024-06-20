@@ -1,6 +1,7 @@
 NAME				=	minishell
 
 SOURCES				=	get_env_var.c				\
+						destroy_msh.c				\
 						dup_envp.c					\
 						minishell.c					\
 						parse_cmds/expand_env.c		\
