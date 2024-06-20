@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:44:08 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 12:44:13 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:59:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ bool	dup_envp(char **src, t_msh *msh)
 			return (true);
 		}
 	}
+	msh->envp[i] = NULL;
 	return (false);
 }
