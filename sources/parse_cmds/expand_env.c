@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:22:06 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:25:03 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ bool	expand_env(char **str, char **envp)
 
 	if (create_expand(*str, 0, envp, &expand))
 		return (true);
-	printf("EXPAND_ENV:\n%s\n%s\n%zu\n", *str, expand, ft_strlen(expand));
 	free(*str);
 	*str = expand;
 	return (false);
