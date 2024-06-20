@@ -6,97 +6,72 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 15:42:00 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:22:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-static size_t	get_var_len(char *str)
+static bool	init_expand(size_t size, char **expand)
 {
-	size_t	len;
-
-	len = 0;
-	while (str[len] && !ft_strchr(SEPARATORS, str[len]))
-		len++;
-	return (len);
+	*expand = malloc((size + 1) * sizeof(char));
+	if (!*expand)
+	{
+		perror("malloc");
+		return (true);
+	}
+	(*expand)[size] = 0;
+	return (false);
 }
 
-static size_t	value_len(char *str, size_t *i, char **envp)
+static size_t	expand_size(char *str, size_t *var_len, char **value,
+	char **envp)
+{
+	*var_len = 0;
+	if (*str == '$')
+	{
+		while (!ft_strchr(SEPARATORS, str[*var_len + 1]))
+			(*var_len)++;
+		if (!var_len)
+			return (1);
+		*value = get_env_var(str + 1, *var_len, envp);
+		if (*value)
+			return (ft_strlen(*value));
+	}
+	return (1);
+}
+
+static bool	create_expand(char *str, size_t size, char **envp, char **expand)
 {
 	char	*value;
+	size_t	value_size;
 	size_t	var_len;
 
-	var_len = get_var_len(str);
-	*i += var_len;
-	if (!var_len)
-		return (1);
-	value = get_env_var(str, var_len, envp);
-	if (!value)
-		return (0);
-	return (ft_strlen(value));
-}
-
-static size_t	expand_size(char *str, char **envp)
-{
-	size_t	i;
-	size_t	size;
-
-	i = -1;
-	size = 0;
-	while (str[++i])
+	if (!*str)
+		return (init_expand(size, expand));
+	value_size = expand_size(str, &var_len, &value, envp);
+	if (create_expand(str + var_len + 1, size + value_size, envp, expand))
+		return (true);
+	if (*str == '$')
 	{
-		if (str[i] == '$')
-			size += value_len(&str[i + 1], &i, envp);
-		else
-			size++;
+		if (!var_len)
+			(*expand)[size] = '$';
+		else if (value)
+			while (value_size--)
+				(*expand)[size + value_size] = value[value_size];
 	}
-	return (size);
-}
-
-static void	copy_expand(char *src, char *dst, char **envp)
-{
-	char	*value;
-	size_t	i_dst;
-	size_t	i_src;
-	size_t	var_len;
-
-	i_src = -1;
-	i_dst = 0;
-	while (src[++i_src])
-	{
-		if (src[i_src] == '$')
-		{
-			var_len = get_var_len(&src[i_src + 1]);
-			if (!var_len)
-				dst[i_dst++] = '$';
-			else
-			{
-				value = get_env_var(&src[i_src + 1], var_len, envp);
-				if (value)
-					while (*value)
-						dst[i_dst++] = *value++;
-				i_src += var_len;
-			}
-		}
-		else
-			dst[i_dst++] = src[i_src];
-	}
-	dst[i_dst] = 0;
+	else
+		(*expand)[size] = *str;
+	return (false);
 }
 
 bool	expand_env(char **str, char **envp)
 {
 	char	*expand;
 
-	expand = malloc((expand_size(*str, envp) + 1) * sizeof(char));
-	if (!expand)
-	{
-		perror("malloc");
+	if (create_expand(*str, 0, envp, &expand))
 		return (true);
-	}
-	copy_expand(*str, expand, envp);
-	printf("EXPAND_ENV:\n%s\n%s\n", *str, expand);
+	printf("EXPAND_ENV:\n%s\n%s\n%zu\n", *str, expand, ft_strlen(expand));
 	free(*str);
 	*str = expand;
 	return (false);
