@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 17:42:20 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:24:09 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	parse_cmds(char *str, t_msh *msh)
 	i = -1;
 	while (strs[++i])
 	{
-		printf("%s;\n", strs[i]);
+		printf("%s\n", strs[i]);
 		free(strs[i]);
 	}
 	free(strs);
