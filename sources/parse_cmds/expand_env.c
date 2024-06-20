@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 14:32:36 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:42:00 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	copy_expand(char *src, char *dst, char **envp)
 			else
 			{
 				value = get_env_var(&src[i_src + 1], var_len, envp);
-				if (*value)
+				if (value)
 					while (*value)
 						dst[i_dst++] = *value++;
 				i_src += var_len;
