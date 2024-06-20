@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:29:19 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:59:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	destroy_envp(char **envp)
 {
 	size_t	i;
 
+	if (!envp)
+		return ;
 	i = -1;
 	while (envp[++i])
 		free(envp[i]);
