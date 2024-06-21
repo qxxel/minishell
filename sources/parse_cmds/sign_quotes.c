@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 13:47:27 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:20:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	sign_quotes(char *str)
 	}
 	if (quote)
 	{
-		ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, quote);
+		ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR UNEXPECTED_EOF_ERROR,
+			quote);
 		return (true);
 	}
 	return (false);
