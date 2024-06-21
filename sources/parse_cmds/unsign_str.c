@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsign_strs.c                                      :+:      :+:    :+:   */
+/*   unsign_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 19:28:17 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 14:06:31 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/21 14:06:48 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/21 14:06:54 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	unsign_strs(char **strs)
+void	unsign_str(char *str)
 {
 	size_t	i;
 
 	i = -1;
-	while (strs[++i])
-		unsign_str(strs[i]);
-	return (false);
+	while (str[++i])
+		if ((signed char)str[i] < 0)
+			str[i] *= -1;
 }

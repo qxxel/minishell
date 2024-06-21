@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:37:22 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:07:14 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	remove_quotes(char **strs);
 bool	remove_spaces(char **strs);
 void	shift_strs(char **strs);
 bool	sign_quotes(char *str);
+void	unsign_str(char *str);
 bool	unsign_strs(char **strs);
 
 #endif
