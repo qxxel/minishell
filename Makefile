@@ -4,6 +4,7 @@ SOURCES				=	get_env_var.c				\
 						destroy_msh.c				\
 						dup_envp.c					\
 						minishell.c					\
+						parse_cmds/check_syntax.c	\
 						parse_cmds/expand_env.c		\
 						parse_cmds/expand_quotes.c	\
 						parse_cmds/join_strs.c		\
