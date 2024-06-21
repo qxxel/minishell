@@ -9,7 +9,6 @@ SOURCES				=	get_env_var.c				\
 						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
-						parse_cmds/remove_spaces.c	\
 						parse_cmds/shift_strs.c		\
 						parse_cmds/sign_quotes.c	\
 						parse_cmds/unsign_str.c		\
