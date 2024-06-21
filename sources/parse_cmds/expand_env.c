@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 12:56:53 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:01:27 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static bool	create_expand(char *str, size_t size, char **envp, char **expand)
 			(*expand)[size] = '$';
 		else if (value)
 			while (value_size--)
-				(*expand)[size + value_size] = value[value_size];
+				(*expand)[size + value_size] = value[value_size]
+					* (-1 + (2 * (value[value_size] == ' ')));
 	}
 	else
 		(*expand)[size] = *str;
