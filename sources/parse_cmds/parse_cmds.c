@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:38:27 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:44:59 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ bool	parse_cmds(char *str, t_msh *msh)
 
 	strs = NULL;
 	error = sign_quotes(str) || expand_env(&str, msh->envp)
-		|| msh_split(str, &strs) || remove_quotes(strs) || join_quotes(strs)
-		|| remove_spaces(strs) || unsign_strs(strs);
+		|| msh_split(str, &strs) || expand_quotes(strs, msh->envp)
+		|| join_strs(strs) || remove_spaces(strs) || unsign_strs(strs);
 	if (strs)
 	{
 		i = -1;

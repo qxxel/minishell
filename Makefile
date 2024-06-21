@@ -5,10 +5,10 @@ SOURCES				=	get_env_var.c				\
 						dup_envp.c					\
 						minishell.c					\
 						parse_cmds/expand_env.c		\
-						parse_cmds/join_quotes.c	\
+						parse_cmds/expand_quotes.c	\
+						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
-						parse_cmds/remove_quotes.c	\
 						parse_cmds/remove_spaces.c	\
 						parse_cmds/shift_strs.c		\
 						parse_cmds/sign_quotes.c	\

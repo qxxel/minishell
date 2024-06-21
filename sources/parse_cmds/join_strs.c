@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quotes.c                                    :+:      :+:    :+:   */
+/*   join_strs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 17:03:40 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:35:55 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 17:00:39 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/21 14:42:22 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	remove_quotes(char **strs)
+bool	join_strs(char **strs)
 {
+	char	*str;
 	size_t	i;
 
 	i = 0;
 	while (strs[i])
 	{
-		if (ft_strchr(QUOTES, strs[i][0]))
-			shift_strs(&strs[i]);
-		else
+		if (!strs[i + 1] || ft_strchr(SEPARATORS, strs[i][0])
+			|| ft_strchr(SEPARATORS, strs[i + 1][0]))
+		{
 			i++;
+			continue ;
+		}
+		str = ft_strjoin(strs[i], strs[i + 1]);
+		if (!str)
+		{
+			perror("malloc");
+			return (true);
+		}
+		shift_strs(&strs[i]);
+		free(strs[i]);
+		strs[i] = str;
 	}
 	return (false);
 }
