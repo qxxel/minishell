@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:55:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 22:38:37 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 23:09:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ static bool	init_redirects(char **strs, t_cmd *cmd)
 	if (create_redirects(strs, cmd))
 		return (true);
 	i_redirect = 0;
-	i_str = -1;
-	while (strs[++i_str] && strs[i_str][0] != '|')
+	i_str = 0;
+	while (strs[i_str] && strs[i_str][0] != '|')
 	{
 		if (strs[i_str][0] != '<' && strs[i_str][0] != '>')
+		{
+			i_str++;
 			continue ;
+		}
 		unsign_str(strs[i_str + 1]);
 		cmd->redirects[i_redirect++] = (t_redirect){
 			.name = strs[i_str + 1],
