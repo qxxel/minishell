@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 14:01:27 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 15:39:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	expand_size(char *str, size_t *var_len, char **value,
 	char **envp)
 {
 	*var_len = 0;
-	if (*str == '$')
+	if (str[0] == '$')
 	{
 		while (str[*var_len + 1]
 			&& !ft_strchr(SEPARATORS"$", str[*var_len + 1]))
@@ -54,7 +54,7 @@ static bool	create_expand(char *str, size_t size, char **envp, char **expand)
 	value_size = expand_size(str, &var_len, &value, envp);
 	if (create_expand(str + var_len + 1, size + value_size, envp, expand))
 		return (true);
-	if (*str == '$')
+	if (str[0] == '$')
 	{
 		if (!var_len)
 			(*expand)[size] = '$';
