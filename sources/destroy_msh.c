@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:59:06 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 22:00:26 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ static void	destroy_envp(char **envp)
 void	destroy_msh(t_msh msh)
 {
 	destroy_envp(msh.envp);
+	free_cmds(msh.cmds, msh.n_cmds);
 }

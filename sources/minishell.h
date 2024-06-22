@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:29:24 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:59:34 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void	destroy_msh(t_msh msh);
 bool	dup_envp(char **src, t_msh *msh);
+void	free_cmds(t_cmd *cmds, size_t n);
 bool	parse_cmds(char *str, t_msh *msh);
 
 #endif
