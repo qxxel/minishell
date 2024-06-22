@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:06:48 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 14:06:54 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:37:14 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	unsign_str(char *str)
 {
 	size_t	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i])
+	{
 		if ((signed char)str[i] < 0)
 			str[i] *= -1;
+		i++;
+	}
 }
