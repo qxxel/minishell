@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 23:03:29 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 23:17:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	debug_print_argv(char **argv)
 			printf(", ");
 		printf("\"%s\"", argv[i++]);
 	}
-	printf("},\n");
+	printf(", NULL},\n");
 }
 
 static void	debug_print_redirects(t_cmd cmd)
@@ -49,7 +49,7 @@ static void	debug_print_redirects(t_cmd cmd)
 		if (i)
 			printf(",\n");
 		printf("\t\t{\n\t\t\t.option = %d,\n\t\t\t.out = %d,\n\t\t\t\
-.option = %s\n\t\t}", cmd.redirects[i].option, cmd.redirects[i].out,
+.name = \"%s\"\n\t\t}", cmd.redirects[i].option, cmd.redirects[i].out,
 			cmd.redirects[i].name);
 		i++;
 	}
@@ -81,8 +81,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&msh, sizeof(msh));
 	if (dup_envp(envp, &msh))
 		return (EXIT_FAILURE);
-	str = ft_strdup("echo \"Hello'\"'\"World' '' $USER | cat -e >> my_outfile \
+	str = ft_strdup("echo \"Hello'\"'\"World' '' $USER | cat < /etc/passwd -e >> my_outfile \
 | wc");
+	printf("%s\n\n", str);
 	parse_cmds(str, &msh);
 	debug_print_cmds(msh);
 	destroy_msh(msh);
