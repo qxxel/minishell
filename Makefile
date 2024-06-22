@@ -7,6 +7,7 @@ SOURCES				=	get_env_var.c				\
 						parse_cmds/check_syntax.c	\
 						parse_cmds/expand_env.c		\
 						parse_cmds/expand_quotes.c	\
+						parse_cmds/init_cmds.c		\
 						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
