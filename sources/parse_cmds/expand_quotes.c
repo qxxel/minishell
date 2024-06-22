@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:18:31 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 14:44:26 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 15:33:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	remove_quotes(char **strs)
 	while (strs[i])
 	{
 		if (ft_strchr(QUOTES, strs[i][0]))
-			shift_strs(&strs[i]);
+			shift_strs(&strs[i], true);
 		else
 			i++;
 	}
@@ -48,7 +48,7 @@ bool	expand_quotes(char **strs, char **envp)
 		if (strs[i][0] == '"' && ft_strlen(strs[i]) % 2 == even_quotes)
 		{
 			even_quotes = !even_quotes;
-			shift_strs(&strs[i]);
+			shift_strs(&strs[i], true);
 			unsign_str(strs[i]);
 			if (expand_env(&strs[i], envp))
 				return (true);

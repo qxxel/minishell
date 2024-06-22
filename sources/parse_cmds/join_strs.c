@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:00:39 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 17:05:45 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 15:34:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	join_str(char **strs)
 		perror("malloc");
 		return (true);
 	}
-	shift_strs(strs);
+	shift_strs(strs, true);
 	free(strs[0]);
 	strs[0] = str;
 	return (false);
@@ -39,7 +39,7 @@ bool	join_strs(char **strs)
 			|| ft_strchr(SEPARATORS, strs[i + 1][0]))
 		{
 			if (strs[i][0] == ' ')
-				shift_strs(&strs[i]);
+				shift_strs(&strs[i], true);
 			else
 				i++;
 		}

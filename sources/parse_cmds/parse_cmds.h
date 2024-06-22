@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 18:12:31 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 15:33:44 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	expand_env(char **str, char **envp);
 bool	expand_quotes(char **str, char **envp);
 bool	join_strs(char **strs);
 bool	msh_split(char *str, char ***strs);
-void	shift_strs(char **strs);
+void	shift_strs(char **strs, bool free_str);
 bool	sign_quotes(char *str);
 void	unsign_str(char *str);
 bool	unsign_strs(char **strs);
