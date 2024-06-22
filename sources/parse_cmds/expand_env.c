@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 15:39:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 22:39:12 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	init_expand(size_t size, char **expand)
 {
-	*expand = malloc((size + 1) * sizeof(char));
+	*expand = malloc((size + 1) * sizeof(**expand));
 	if (!*expand)
 	{
 		perror("malloc");

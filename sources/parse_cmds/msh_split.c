@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:41:35 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/15 17:53:46 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 22:39:32 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static size_t	strs_len(char *str)
 
 static bool	init_strs(char *str, char ***strs)
 {
-	*strs = ft_calloc(strs_len(str), sizeof(char *));
+	*strs = ft_calloc(strs_len(str), sizeof(**strs));
 	if (!*strs)
 	{
 		perror("malloc");
