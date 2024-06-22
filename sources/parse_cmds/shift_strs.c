@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:56:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 15:33:33 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 15:42:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	shift_strs(char **strs, bool free_str)
 
 	if (free_str)
 		free(strs[0]);
-	i = -1;
-	while (strs[++i])
+	i = 0;
+	while (strs[i])
+	{
 		strs[i] = strs[i + 1];
+		i++;
+	}
 }
