@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:07:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 18:12:07 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:47:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-static bool	check_redirection(char **strs)
+static bool	check_redirects(char **strs)
 {
 	size_t	len;
 
@@ -57,7 +57,7 @@ bool	check_syntax(char **strs)
 	{
 		if (strs[i][0] == '<' || strs[i][0] == '>')
 		{
-			if (check_redirection(&strs[i]))
+			if (check_redirects(&strs[i]))
 				return (true);
 		}
 		else if (strs[i][0] == '|')
