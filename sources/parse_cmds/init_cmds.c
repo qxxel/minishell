@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:55:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:49:07 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/22 22:38:37 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool	init_cmd(char **strs, t_cmd *cmd)
 	i = 0;
 	while (strs[i] && strs[i][0] != '|')
 		i++;
-	cmd->argv = malloc((i + 1) * sizeof(char));
+	cmd->argv = malloc((i + 1) * sizeof(*cmd->argv));
 	if (!cmd->argv)
 	{
 		perror("malloc");
