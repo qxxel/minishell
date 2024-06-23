@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 23:17:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:19:16 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,14 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&msh, sizeof(msh));
 	if (dup_envp(envp, &msh))
 		return (EXIT_FAILURE);
-	str = ft_strdup("echo \"Hello'\"'\"World' '' $USER | cat < /etc/passwd -e >> my_outfile \
-| wc");
-	printf("%s\n\n", str);
+	if (argc > 1)
+	{
+		str = ft_strdup(argv[1]);
+		printf("%s\n", str);
+	}
+	else
+		str = readline("> ");
+	printf("\n");
 	parse_cmds(str, &msh);
 	debug_print_cmds(msh);
 	destroy_msh(msh);
