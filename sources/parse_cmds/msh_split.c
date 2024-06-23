@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:41:35 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 22:39:32 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:35:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static size_t	strs_len(char *str)
 	size_t	size;
 
 	separator = str[0] * (ft_strchr(SEPARATORS, str[0]) != 0);
-	i = -1;
+	i = 0;
 	size = 2;
-	while (str[++i])
+	while (str[i])
 	{
 		if (ft_strchr(SEPARATORS, str[i]))
 		{
@@ -33,6 +33,7 @@ static size_t	strs_len(char *str)
 			size += separator != 0;
 			separator = 0;
 		}
+		i++;
 	}
 	return (size);
 }
@@ -50,10 +51,12 @@ static bool	init_strs(char *str, char ***strs)
 
 static bool	segment_str(char *str, char **strs, size_t *start, size_t end)
 {
-	static size_t	i = -1;
+	static size_t	i = 0;
 
-	strs[++i] = ft_substr(&str[*start], 0, end - *start);
-	if (!strs[i])
+	if (!*start)
+		i = 0;
+	strs[i] = ft_substr(&str[*start], 0, end - *start);
+	if (!strs[i++])
 	{
 		perror("malloc");
 		free_nptr(2, strs);
