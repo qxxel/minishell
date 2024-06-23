@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_envp.c                                         :+:      :+:    :+:   */
+/*   init_msh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 17:44:08 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/20 16:59:57 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/23 13:12:11 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	dup_envp(char **src, t_msh *msh)
+static bool	init_envp(char **src, t_msh *msh)
 {
 	size_t	i;
 
@@ -36,4 +36,10 @@ bool	dup_envp(char **src, t_msh *msh)
 	}
 	msh->envp[i] = NULL;
 	return (false);
+}
+
+bool	init_msh(char **envp, t_msh *msh)
+{
+	ft_bzero(msh, sizeof(*msh));
+	return (init_envp(envp, msh));
 }

@@ -1,9 +1,9 @@
 NAME				=	minishell
 
-SOURCES				=	dup_envp.c					\
-						free_cmds.c					\
+SOURCES				=	free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
+						init_msh.c					\
 						minishell.c					\
 						parse_cmds/check_syntax.c	\
 						parse_cmds/expand_env.c		\
