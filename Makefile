@@ -1,6 +1,7 @@
 NAME				=	minishell
 
-SOURCES				=	free_cmds.c					\
+SOURCES				=	builtins/ft_echo.c			\
+						free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
 						init_msh.c					\
