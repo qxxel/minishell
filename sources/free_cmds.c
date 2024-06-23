@@ -6,23 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 21:52:19 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 22:37:39 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:27:40 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	free_argv(char **argv)
-{
-	size_t	i;
-
-	if (!argv)
-		return ;
-	i = 0;
-	while (argv[i])
-		free(argv[i++]);
-	free(argv);
-}
 
 static void	free_redirects(t_redirect *redirects, size_t n)
 {
@@ -35,7 +23,7 @@ static void	free_redirects(t_redirect *redirects, size_t n)
 
 static void	free_cmd(t_cmd cmd)
 {
-	free_argv(cmd.argv);
+	free_nptr(2, cmd.argv);
 	free_redirects(cmd.redirects, cmd.n_redirects);
 }
 
