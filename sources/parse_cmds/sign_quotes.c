@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/21 17:20:06 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:17:45 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ bool	sign_quotes(char *str)
 	size_t	i;
 
 	quote = 0;
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i])
 	{
 		if (quote)
 		{
@@ -30,6 +30,7 @@ bool	sign_quotes(char *str)
 		}
 		else if (ft_strchr(QUOTES, str[i]))
 			quote = str[i];
+		i++;
 	}
 	if (quote)
 	{
