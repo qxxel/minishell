@@ -43,7 +43,7 @@ $(BUILD_DIR)/%.o	:	$(SOURCES_DIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c	$<
 
 $(NAME)				:	$(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean				:
 	$(MAKE) -C	$(LIBFT_DIR) $@
