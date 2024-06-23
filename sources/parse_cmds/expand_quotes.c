@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:18:31 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 15:33:55 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:37:03 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ static void	sign_str(char *str)
 {
 	size_t	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i])
+	{
 		if (str[i] > 0)
 			str[i] *= -1;
+		i++;
+	}
 }
 
 static void	remove_quotes(char **strs)
@@ -42,8 +45,8 @@ bool	expand_quotes(char **strs, char **envp)
 	size_t	i;
 
 	even_quotes = true;
-	i = -1;
-	while (strs[++i])
+	i = 0;
+	while (strs[i])
 	{
 		if (strs[i][0] == '"' && ft_strlen(strs[i]) % 2 == even_quotes)
 		{
@@ -56,6 +59,7 @@ bool	expand_quotes(char **strs, char **envp)
 		}
 		else
 			even_quotes = true;
+		i++;
 	}
 	remove_quotes(strs);
 	return (false);
