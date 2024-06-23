@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:42:06 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:26:00 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ bool	parse_cmds(char *str, t_msh *msh)
 	free(str);
 	error = error || expand_quotes(strs, msh->envp) || join_strs(strs)
 		|| check_syntax(strs) || init_cmds(strs, msh);
-	free(strs);
+	free_nptr(2, strs);
 	return (error);
 }
