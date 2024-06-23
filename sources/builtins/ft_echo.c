@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:00:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 16:28:50 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 16:32:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	init_buffer(char **argv, bool newline, size_t size, char **buffer)
 	return (false);
 }
 
-int	ft_echo(char **argv, char **envp)
+int	ft_echo(char **argv, char ***envp)
 {
 	char	*buffer;
 
