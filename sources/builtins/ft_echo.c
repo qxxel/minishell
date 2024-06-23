@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:00:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 15:55:33 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 15:59:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	init_buffer(char **argv, bool newline, size_t size, char **buffer)
 	if (init_buffer(&argv[1], newline, size + len, buffer))
 		return (true);
 	while (len--)
-		buffer[size + len] = argv[0][len];
+		(*buffer)[size + len] = argv[0][len];
 	return (false);
 }
 
