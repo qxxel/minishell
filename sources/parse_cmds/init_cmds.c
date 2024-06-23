@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:55:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 23:09:39 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:40:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ static bool	create_redirects(char **strs, t_cmd *cmd)
 {
 	size_t	i;
 
-	i = -1;
-	while (strs[++i] && strs[i][0] != '|')
+	i = 0;
+	while (strs[i] && strs[i][0] != '|')
+	{
 		if (strs[i][0] == '<' || strs[i][0] == '>')
 			cmd->n_redirects++;
+		i++;
+	}
 	if (!cmd->n_redirects)
 		return (false);
 	cmd->redirects = ft_calloc(cmd->n_redirects,
@@ -94,9 +97,9 @@ bool	init_cmds(char **strs, t_msh *msh)
 	if (!strs[0])
 		return (false);
 	msh->n_cmds = 1;
-	i = -1;
-	while (strs[++i])
-		msh->n_cmds += strs[i][0] == '|';
+	i = 0;
+	while (strs[i])
+		msh->n_cmds += strs[i++][0] == '|';
 	msh->cmds = ft_calloc(msh->n_cmds, sizeof(*msh->cmds));
 	if (!msh->cmds)
 	{
