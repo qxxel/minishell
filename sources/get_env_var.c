@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:46:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/19 12:50:29 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:15:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ char	*get_env_var(char *name, size_t len, char **envp)
 
 	if (!len)
 		len = ft_strlen(name);
-	i = -1;
-	while (envp[++i])
+	i = 0;
+	while (envp[i])
+	{
 		if (!ft_strncmp(name, envp[i], len) && envp[i][len] == '=')
 			return (&envp[i][len + 1]);
+		i++;
+	}
 	return (NULL);
 }
