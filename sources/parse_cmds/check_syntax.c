@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:07:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:47:55 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/23 13:19:12 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ bool	check_syntax(char **strs)
 		ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, '|');
 		return (true);
 	}
-	i = -1;
-	while (strs[++i])
+	i = 0;
+	while (strs[i])
 	{
 		if (strs[i][0] == '<' || strs[i][0] == '>')
 		{
@@ -63,6 +63,7 @@ bool	check_syntax(char **strs)
 		else if (strs[i][0] == '|')
 			if (check_pipe(&strs[i]))
 				return (true);
+		i++;
 	}
 	return (false);
 }
