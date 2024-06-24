@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 08:26:17 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 08:47:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 09:01:24 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static bool	expand_envp(char *var, size_t size, char ***envp)
 	return (false);
 }
 
-bool	set_env_var(char *var, size_t name_len, char ***envp)
+bool	set_env_var(char *var, size_t id_len, char ***envp)
 {
 	size_t	i;
 
 	i = 0;
-	while ((*envp)[i] && (ft_strncmp(var, (*envp)[i], name_len)
-		|| (*envp)[i][name_len] != '='))
+	while ((*envp)[i] && (ft_strncmp(var, (*envp)[i], id_len)
+		|| (*envp)[i][id_len] != '='))
 		i++;
 	if ((*envp)[i])
 	{
