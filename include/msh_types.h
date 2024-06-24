@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 08:27:04 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 08:58:32 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_redirect
 {
 	bool	option;
 	bool	out;
-	char	*name;
+	char	*path;
 }	t_redirect;
 
 typedef struct s_cmd

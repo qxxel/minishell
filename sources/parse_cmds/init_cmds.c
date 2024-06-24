@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:55:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 13:40:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 08:58:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static bool	init_redirects(char **strs, t_cmd *cmd)
 		}
 		unsign_str(strs[i_str + 1]);
 		cmd->redirects[i_redirect++] = (t_redirect){
-			.name = strs[i_str + 1],
+			.path = strs[i_str + 1],
 			.out = strs[i_str][0] == '>',
 			.option = strs[i_str][1] != 0
 		};
