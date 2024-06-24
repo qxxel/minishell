@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/13 16:51:41 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/19 12:50:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@
 # include "libft.h"
 # include "msh_types.h"
 
-t_cmd	*init_cmds_example(void);
+char	*get_env_var(char *name, size_t len, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:21:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/02/08 17:07:02 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:30:20 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static size_t	split_size(char const *s, char c)
 	return (size);
 }
 
-static bool	create_str(char **split, size_t *i, char const *s, int end)
+static bool	create_str(char **split, size_t *i, char const *s, size_t len)
 {
-	split[*i] = ft_substr(s, 0, end);
+	split[*i] = ft_substr(s, 0, len);
 	if (!split[*i])
 	{
 		free_nptr(2, split);

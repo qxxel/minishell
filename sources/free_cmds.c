@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:46:27 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/22 21:52:19 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/23 12:27:40 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+static void	free_redirects(t_redirect *redirects, size_t n)
 {
-	bool	option;
-	bool	out;
-	char	*name;
-}	t_redirect;
+	if (!redirects)
+		return ;
+	while (n--)
+		free(redirects[n].name);
+	free(redirects);
+}
 
-typedef struct s_cmd
+static void	free_cmd(t_cmd cmd)
 {
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-}	t_cmd;
+	free_nptr(2, cmd.argv);
+	free_redirects(cmd.redirects, cmd.n_redirects);
+}
 
-typedef struct s_msh
+void	free_cmds(t_cmd *cmds, size_t n)
 {
-	char	**envp;
-	size_t	envc;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-}	t_msh;
-
-#endif
+	if (!cmds)
+		return ;
+	while (n--)
+		free_cmd(cmds[n]);
+	free(cmds);
+}

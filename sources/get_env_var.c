@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   get_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:46:27 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/18 17:46:18 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/23 13:15:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+char	*get_env_var(char *name, size_t len, char **envp)
 {
-	bool	option;
-	bool	out;
-	char	*name;
-}	t_redirect;
+	size_t	i;
 
-typedef struct s_cmd
-{
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-}	t_cmd;
-
-typedef struct s_msh
-{
-	char	**envp;
-	size_t	envc;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-}	t_msh;
-
-#endif
+	if (!len)
+		len = ft_strlen(name);
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(name, envp[i], len) && envp[i][len] == '=')
+			return (&envp[i][len + 1]);
+		i++;
+	}
+	return (NULL);
+}
