@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 13:12:59 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 16:19:48 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 	t_msh	msh;
 
-	(void)argc;
-	(void)argv;
 	if (init_msh(envp, &msh))
 		return (EXIT_FAILURE);
 	if (argc > 1)
