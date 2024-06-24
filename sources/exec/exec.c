@@ -6,7 +6,7 @@
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:43 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:15:07 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,65 @@ bool	exec(t_cmd cmd, int end[2], char **envp)
 	exit(0);
 }
 
-bool	exec_pipe(t_cmd cmd, int end[3], char **envp)
+bool	exec_pipe(t_cmd cmd, int end[2], char **envp)
 {
-	
-	// int		i;
-	// char	*path;
+	int		i;
+	char	*path;
 
-	// i = 0;
-	// end[2] = 1;
-	// if (cmd.in)
-	// 	end[0] = open(cmd.in, O_RDONLY);
-	// if (cmd.out)
-	// 	end[2] = open(cmd.out, O_WRONLY);
-	// return (exec(cmd, end, envp));
+	i = 0;
+	
 }
 
-bool	exec_cmds(t_cmd *cmds, char **envp)
+bool	check_redirections(t_msh msh, int end[2], int prev_end,size_t i)
 {
-	int		end[3];
+	int	j;
+	int	fd_tmp;
+	
+	j = 0;
+	msh.cmds[i].pid = fork();
+	if (msh.cmds[i].pid == -1)
+		return (true);
+	if (msh.cmds[i].pid > 0)
+		return (false);
+	dup2(prev_end, STDIN_FILENO);
+	close(prev_end);
+	close(end[0]);
+	dup2(end[1], STDOUT_FILENO);
+	close(end[1]);
+	while (j < msh.cmds->n_redirects)
+	{
+		fd_tmp = open(msh.cmds->redirects[j].name, );
+		if (fd_tmp < 0)
+			exit(1);
+		dup2(fd_tmp, end[1]);
+		close (fd_tmp);
+		j++;
+	}
+	exit(0);
+}
+
+bool	exec_cmds(t_msh msh)
+{
+	int		end[2];
+	int		previous_end;
 	bool	error;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	error = false;
-	end[0] = 0;
-	if (!cmds)
-		return (true);
-	while (cmds[i] && !error)
+	if (msh.n_cmds == 0)
+		return (false);
+	while (i < msh.n_cmds && !error)
 	{
-		if (cmds[i + 1])
-			error = pipe(end + 1) == -1;
-		else
-			end[2] = open();
+		if (i + 1 < msh.n_cmds)
+			error = pipe(end) == -1;
 		if (!error)
-			error = (end[2] == -1) || exec_pipe(cmds[i], end, envp);
-		end[0] = end[1];
-		exec(cmds[i]);
+		{
+			if (check_redirections(msh, end, previous_end, i) == true)
+				return (true);
+			error = (end[0] == -1) || exec_pipe(msh.cmds[i], end, msh.envp);
+		}
+		previous_end = end[0];
 		i++;
 	}
 	return (error)
