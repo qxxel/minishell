@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 21:46:27 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 08:27:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_cmd
 typedef struct s_msh
 {
 	char	**envp;
-	size_t	envc;
 	size_t	n_cmds;
 	t_cmd	*cmds;
 }	t_msh;
