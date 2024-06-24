@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 07:14:09 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 08:48:02 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@
 int		ft_echo(char **argv, char ***envp);
 int		ft_env(char **argv, char ***envp);
 char	*get_env_var(char *name, size_t len, char **envp);
+bool	set_env_var(char *var, size_t name_len, char ***envp);
 
 #endif
