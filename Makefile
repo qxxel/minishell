@@ -1,6 +1,7 @@
 NAME				=	minishell
 
 SOURCES				=	builtins/ft_echo.c			\
+						builtins/ft_env.c			\
 						free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
