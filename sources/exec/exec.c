@@ -6,65 +6,132 @@
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/06/24 17:15:07 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:05:31 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-bool	exec(t_cmd cmd, int end[2], char **envp)
+bool	exec(t_cmd cmd, char **envp)
 {
-	path = get_path(cmd->argv[0], envp);
+	char *path;
+	
+	path = get_path(cmd.argv[0], envp);
 	if (!path)
 		return (true);
-	dup2(end[0], STDIN_FILENO);
-	dup2(end[2], STDOUT_FILENO);
-	close(end[0]);
-	close(end[1]);
-	close(end[2]);
-	if (execve(path, cmd->argv, envp) == -1)
+	if (execve(path, cmd.argv, envp) == -1)
+	perror("minishell");
+	exit(1);
+}
+
+static bool	read_doc_line(char **line)
+{
+	if (*line)
+		free(*line);
+	ft_putstr_fd("> ", STDOUT_FILENO);
+	*line = get_next_line(STDIN_FILENO);
+	return (*line != NULL);
+}
+
+int open_heredoc(t_redirect redirect)
+{
+	int		fd;
+	int		error;
+	int		end[2];
+	char	*line;
+
+	if (pipe(end))
 	{
-		perror("minishell");
-		exit(1);
+		perror("pipe");
+		return (-1);
 	}
-	exit(0);
+	errno = 0;
+	line = NULL;
+	while (read_doc_line(&line))
+	{
+		if(ft_strcmp(line, redirect.name) == 0)
+			break ;
+		ft_putstr_fd(line, end[1]);
+	}
+	close(end[1]);
+	return(end[0]);
 }
 
-bool	exec_pipe(t_cmd cmd, int end[2], char **envp)
+int open_redirects(t_redirect redirects)
 {
-	int		i;
-	char	*path;
-
-	i = 0;
+	int fd;
 	
+	if (redirects.out)
+	{
+		if (!redirects.option)
+			fd = open(redirects.name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		else
+			fd = open(redirects.name, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	}
+	else
+	{
+		if (!redirects.option)
+		fd = open(redirects.name, O_RDONLY);
+		if (fd == -1)
+			if (access(redirects.name, F_OK))
+			{
+				ft_dprintf(STDERR_FILENO, "minishell: %s: No such file or directory", redirects.name);
+				return (-1);
+			}
+	}
+	if (fd == -1)
+		ft_dprintf(STDERR_FILENO, "minishell: %s: Permission denied", redirects.name);
+	return (fd);
 }
 
-bool	check_redirections(t_msh msh, int end[2], int prev_end,size_t i)
+void	check_redirects(t_cmd cmd)
 {
-	int	j;
+	int	i;
 	int	fd_tmp;
 	
-	j = 0;
-	msh.cmds[i].pid = fork();
-	if (msh.cmds[i].pid == -1)
-		return (true);
-	if (msh.cmds[i].pid > 0)
-		return (false);
-	dup2(prev_end, STDIN_FILENO);
-	close(prev_end);
-	close(end[0]);
-	dup2(end[1], STDOUT_FILENO);
-	close(end[1]);
-	while (j < msh.cmds->n_redirects)
+	i = 0;
+	while (i < cmd.n_redirects)
 	{
-		fd_tmp = open(msh.cmds->redirects[j].name, );
+		fd_tmp = open_redirects(cmd.redirects[i]);
 		if (fd_tmp < 0)
 			exit(1);
-		dup2(fd_tmp, end[1]);
-		close (fd_tmp);
-		j++;
+		safe_dup2(fd_tmp, cmd.redirects[i].out);
+		i++;
 	}
-	exit(0);
+	
+}
+
+static bool safe_dup2(int newfd, int oldfd)
+{
+	if (newfd == -1)
+		return (false);
+	if (dup2(newfd, oldfd) == -1)
+	{
+		perror("dup2");
+		close(newfd);
+		return (true);
+	}
+	close(newfd);
+	return (false);
+}
+
+static bool	exec_cmd(t_cmd *cmd, t_msh msh, int previous_end, int end[2])
+{
+	cmd->pid = fork();
+	if (cmd->pid == -1)
+	{
+		perror("fork");
+		return (true);
+	}
+	if (cmd->pid > 0)
+		return (false);
+	close(end[0]);
+	if (safe_dup2(previous_end, STDIN_FILENO))
+		return (true);
+	if (safe_dup2(end[1], STDOUT_FILENO))
+		return (true);
+	check_redirects(*cmd);
+	exec(*cmd, msh.envp);
 }
 
 bool	exec_cmds(t_msh msh)
@@ -76,6 +143,7 @@ bool	exec_cmds(t_msh msh)
 
 	i = 0;
 	error = false;
+	previous_end = -1;
 	if (msh.n_cmds == 0)
 		return (false);
 	while (i < msh.n_cmds && !error)
@@ -84,12 +152,13 @@ bool	exec_cmds(t_msh msh)
 			error = pipe(end) == -1;
 		if (!error)
 		{
-			if (check_redirections(msh, end, previous_end, i) == true)
-				return (true);
-			error = (end[0] == -1) || exec_pipe(msh.cmds[i], end, msh.envp);
+			exec_cmd(&msh.cmds[i], msh, previous_end, end);
+			error = exec_pipe(msh.cmds[i], end, msh.envp);
 		}
 		previous_end = end[0];
 		i++;
 	}
-	return (error)
+	while (i--)
+		waitpid(msh.cmds[i].pid, NULL, 0);
+	return (error);
 }
