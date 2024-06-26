@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 15:13:12 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/26 15:29:22 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static bool	export_var(char *var, char ***envp)
 	return (false);
 }
 
-int	ft_export(char **argv, char ***envp)
+int	ft_export(char **argv, t_msh *msh)
 {
 	size_t	i;
 
 	if (!argv[0] || !argv[1])
-		print_export(*envp);
+		print_export(msh->envp);
 	i = 1;
 	while (argv[i])
 		i++;

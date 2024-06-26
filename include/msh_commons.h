@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 09:01:26 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/26 15:29:51 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # include "libft.h"
 # include "msh_types.h"
 
-int		ft_echo(char **argv, char ***envp);
-int		ft_env(char **argv, char ***envp);
+int		ft_echo(char **argv, t_msh *msh);
+int		ft_env(char **argv, t_msh *msh);
+int		ft_export(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
 bool	set_env_var(char *var, size_t id_len, char ***envp);
 

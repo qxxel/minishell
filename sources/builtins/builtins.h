@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:59:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 14:02:43 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:02:30 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define BUILTINS_H
 
 # include "msh_commons.h"
+
+# define EXPORT_PREFIX	"declare -x "
 
 #endif
