@@ -4,6 +4,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_echo.c			\
 						builtins/ft_env.c			\
 						builtins/ft_export.c		\
+						builtins/ft_pwd.c		\
 						free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
