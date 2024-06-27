@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:59:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 15:02:30 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/27 11:43:35 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "msh_commons.h"
 
-# define EXPORT_PREFIX	"declare -x "
+# define EXPORT_INVALID_ID	"minishell: export: `%s': not a valid identifier\n"
+# define EXPORT_PREFIX		"declare -x %s"
 
 #endif
