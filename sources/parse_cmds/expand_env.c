@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 22:39:12 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:57:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ static size_t	expand_size(char *str, size_t *var_len, char **value,
 	*var_len = 0;
 	if (str[0] == '$')
 	{
-		while (str[*var_len + 1]
-			&& !ft_strchr(SEPARATORS"$", str[*var_len + 1]))
+		if (ft_isdigit(str[1]))
 			(*var_len)++;
+		else
+			while (str[*var_len + 1]
+				&& (ft_isalnum(str[*var_len + 1]) || str[*var_len + 1] == '_'))
+				(*var_len)++;
 		if (!*var_len)
 			return (1);
 		*value = get_env_var(str + 1, *var_len, envp);
