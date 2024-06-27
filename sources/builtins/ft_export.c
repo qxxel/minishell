@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 12:15:16 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/27 13:57:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static bool	export_var(char *var, t_msh *msh)
 
 	if (ft_isdigit(var[0]))
 	{
-		ft_dprintf(STDERR_FILENO, EXPORT_INVALID_ID, var);
+		ft_dprintf(STDERR_FILENO, EXPORT_ID_ERROR, var);
 		return (true);
 	}
 	id_len = 0;
@@ -81,7 +81,7 @@ static bool	export_var(char *var, t_msh *msh)
 		id_len++;
 	if (var[id_len] && var[id_len] != '=')
 	{
-		ft_dprintf(STDERR_FILENO, EXPORT_INVALID_ID, var);
+		ft_dprintf(STDERR_FILENO, EXPORT_ID_ERROR, var);
 		return (true);
 	}
 	return (set_var(ft_strdup(var), id_len, msh));
