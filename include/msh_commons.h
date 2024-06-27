@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/26 15:29:51 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:36:30 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MSH_COMMONS_H
 
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -32,10 +33,12 @@
 # include "libft.h"
 # include "msh_types.h"
 
+int		ft_cd(char **argv, t_msh *msh);
 int		ft_echo(char **argv, t_msh *msh);
 int		ft_env(char **argv, t_msh *msh);
 int		ft_export(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
 bool	set_env_var(char *var, size_t id_len, char ***envp);
+bool	set_env_var_id(char *id, char *value, char ***envp);
 
 #endif

@@ -1,6 +1,7 @@
 NAME				=	minishell
 
-SOURCES				=	builtins/ft_echo.c			\
+SOURCES				=	builtins/ft_cd.c			\
+						builtins/ft_echo.c			\
 						builtins/ft_env.c			\
 						builtins/ft_export.c		\
 						free_cmds.c					\
@@ -18,7 +19,8 @@ SOURCES				=	builtins/ft_echo.c			\
 						parse_cmds/shift_strs.c		\
 						parse_cmds/sign_quotes.c	\
 						parse_cmds/unsign_str.c		\
-						set_env_var.c
+						set_env_var.c				\
+						set_env_var_id.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources
