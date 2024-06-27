@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:50:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 16:45:34 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/27 17:50:48 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ static bool	cd_switch(char **argv, char **envp, char **path)
 		ft_putstr_fd(CD_ARGS_ERROR, STDERR_FILENO);
 		return (true);
 	}
-	else if (argv[1][0] && !argv[1][1])
+	else if (argv[1][0] == '-' && !argv[1][1])
 	{
 		if (cd_var("OLDPWD", envp, path))
 			return (true);
+		printf("%s\n", *path);
 	}
 	else
 		*path = argv[1];
