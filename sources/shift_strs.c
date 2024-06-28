@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   shift_strs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/26 15:44:13 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 16:56:06 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/28 15:52:02 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+void	shift_strs(char **strs, bool free_str)
 {
-	bool	option;
-	bool	out;
-	char	*path;
-}	t_redirect;
+	size_t	i;
 
-typedef struct s_cmd
-{
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-}	t_cmd;
-
-typedef struct s_msh
-{
-	char	**envp;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-	t_list	*declare;
-}	t_msh;
-
-#endif
+	if (free_str)
+		free(strs[0]);
+	i = 0;
+	while (strs[i])
+	{
+		strs[i] = strs[i + 1];
+		i++;
+	}
+}

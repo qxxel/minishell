@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/26 15:44:13 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/28 15:48:38 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/28 15:49:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+bool	init_envp(char **src, char ***envp)
 {
-	bool	option;
-	bool	out;
-	char	*path;
-}	t_redirect;
+	size_t	i;
 
-typedef struct s_cmd
-{
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-}	t_cmd;
-
-typedef struct s_msh
-{
-	char	**envp;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-	t_list	*declare;
-}	t_msh;
-
-#endif
+	i = 0;
+	while (src[i])
+		i++;
+	*envp = malloc((i + 1) * sizeof(**envp));
+	if (!*envp)
+	{
+		perror("malloc");
+		return (true);
+	}
+	i = 0;
+	while (src[i])
+	{
+		(*envp)[i] = ft_strdup(src[i]);
+		if (!(*envp)[i])
+		{
+			perror("malloc");
+			return (true);
+		}
+		i++;
+	}
+	(*envp)[i] = NULL;
+	return (false);
+}

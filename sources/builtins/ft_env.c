@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shift_strs.c                                       :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:56:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 15:42:01 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/24 07:09:17 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/26 15:28:29 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmds.h"
+#include "builtins.h"
 
-void	shift_strs(char **strs, bool free_str)
+int	ft_env(char **argv, t_msh *msh)
 {
 	size_t	i;
+	size_t	len;
 
-	if (free_str)
-		free(strs[0]);
 	i = 0;
-	while (strs[i])
+	while (msh->envp[i])
 	{
-		strs[i] = strs[i + 1];
+		len = ft_strlen(msh->envp[i]);
+		msh->envp[i][len] = '\n';
+		write(STDOUT_FILENO, msh->envp[i], len + 1);
+		msh->envp[i][len] = 0;
 		i++;
 	}
+	return (EXIT_SUCCESS);
+	(void)argv;
 }

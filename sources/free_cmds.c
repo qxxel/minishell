@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 21:52:19 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 12:27:40 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/24 08:58:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	free_redirects(t_redirect *redirects, size_t n)
 	if (!redirects)
 		return ;
 	while (n--)
-		free(redirects[n].name);
+		free(redirects[n].path);
 	free(redirects);
 }
 
