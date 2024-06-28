@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 18:07:54 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/28 15:54:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ int		ft_echo(char **argv, t_msh *msh);
 int		ft_env(char **argv, t_msh *msh);
 int		ft_export(char **argv, t_msh *msh);
 int		ft_pwd(char **argv, t_msh *msh);
+int		ft_unset(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
+bool	init_envp(char **src, char ***envp);
 bool	set_env_var(char *var, size_t id_len, char ***envp);
 bool	set_env_var_id(char *id, char *value, char ***envp);
+void	shift_strs(char **strs, bool free_str);
 
 #endif

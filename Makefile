@@ -4,10 +4,12 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_echo.c			\
 						builtins/ft_env.c			\
 						builtins/ft_export.c		\
-						builtins/ft_pwd.c		\
+						builtins/ft_pwd.c			\
+						builtins/ft_unset.c			\
 						free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
+						init_envp.c					\
 						init_msh.c					\
 						minishell.c					\
 						parse_cmds/check_syntax.c	\
@@ -17,11 +19,11 @@ SOURCES				=	builtins/ft_cd.c			\
 						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
-						parse_cmds/shift_strs.c		\
 						parse_cmds/sign_quotes.c	\
 						parse_cmds/unsign_str.c		\
 						set_env_var.c				\
-						set_env_var_id.c
+						set_env_var_id.c			\
+						shift_strs.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources

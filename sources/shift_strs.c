@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_msh.c                                         :+:      :+:    :+:   */
+/*   shift_strs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 15:49:02 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/16 16:56:06 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/28 15:52:02 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	init_msh(char **envp, t_msh *msh)
+void	shift_strs(char **strs, bool free_str)
 {
-	ft_bzero(msh, sizeof(*msh));
-	return (init_envp(envp, &msh->envp));
+	size_t	i;
+
+	if (free_str)
+		free(strs[0]);
+	i = 0;
+	while (strs[i])
+	{
+		strs[i] = strs[i + 1];
+		i++;
+	}
 }

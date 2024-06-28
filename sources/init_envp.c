@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shift_strs.c                                       :+:      :+:    :+:   */
+/*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:56:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/22 15:42:01 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/28 15:48:38 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/28 15:49:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmds.h"
+#include "minishell.h"
 
-void	shift_strs(char **strs, bool free_str)
+bool	init_envp(char **src, char ***envp)
 {
 	size_t	i;
 
-	if (free_str)
-		free(strs[0]);
 	i = 0;
-	while (strs[i])
+	while (src[i])
+		i++;
+	*envp = malloc((i + 1) * sizeof(**envp));
+	if (!*envp)
 	{
-		strs[i] = strs[i + 1];
+		perror("malloc");
+		return (true);
+	}
+	i = 0;
+	while (src[i])
+	{
+		(*envp)[i] = ft_strdup(src[i]);
+		if (!(*envp)[i])
+		{
+			perror("malloc");
+			return (true);
+		}
 		i++;
 	}
+	(*envp)[i] = NULL;
+	return (false);
 }
