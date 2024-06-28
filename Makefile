@@ -36,6 +36,7 @@ CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g
 LFLAGS				=	-lreadline
 RM					=	rm -rf
 MKDIR				=	mkdir -p
+VALGRIND			=	valgrind --trace-children=yes --track-fds=yes --show-error-list=yes --suppressions=valgrind.supp --read-var-info=yes --leak-check=full --show-leak-kinds=all --track-origins=yes
 
 LIBFT				=	$(LIBFT_DIR)/libft.a
 OBJECTS				=	$(addprefix $(BUILD_DIR)/,$(SOURCES:.c=.o))
@@ -67,4 +68,7 @@ re					:	fclean all
 
 FORCE				:
 
-.PHONY				:	all clean fclean re FORCE
+leaks				:	$(NAME)
+	$(VALGRIND) ./$<
+
+.PHONY				:	all clean fclean re FORCE leaks
