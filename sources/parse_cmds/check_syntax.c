@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:07:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 13:19:12 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/28 19:23:00 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,12 @@ static bool	check_redirects(char **strs)
 
 static bool	check_pipe(char **strs)
 {
-	if (strs[0][1])
+	if (strs[0][1] || !strs[1] || strs[1][0] == '|')
+	{
 		ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, '|');
-	else if (!strs[1])
-		ft_putstr_fd(UNEXPECTED_EOF_ERROR, STDERR_FILENO);
-	else if (strs[1][0] == '|')
-		ft_dprintf(STDERR_FILENO, EXPECTED_CHAR_ERROR, '|');
-	else
-		return (false);
-	return (true);
+		return (true);
+	}
+	return (false);
 }
 
 bool	check_syntax(char **strs)
