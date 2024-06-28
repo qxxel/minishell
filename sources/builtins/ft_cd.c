@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:50:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 17:50:48 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/06/28 13:03:02 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_cd(char **argv, t_msh *msh)
 	if (chdir(path))
 	{
 		free(old_pwd);
-		ft_dprintf(STDERR_FILENO, CD_ERROR, strerror(errno));
+		ft_dprintf(STDERR_FILENO, CD_ERROR, path, strerror(errno));
 		return (EXIT_FAILURE);
 	}
 	return (set_pwd(old_pwd, getcwd(NULL, 0), &msh->envp));
