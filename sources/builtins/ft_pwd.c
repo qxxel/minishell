@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_msh.c                                         :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 11:58:51 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/27 17:52:10 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/27 18:08:37 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-void	free_msh(t_msh msh)
+int	ft_pwd(char **argv, t_msh *msh)
 {
-	free_nptr(2, msh.envp);
-	free_cmds(msh.cmds, msh.n_cmds);
-	ft_lstclear(&msh.declare, free);
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+	{
+		perror("getcwd");
+		return (EXIT_FAILURE);
+	}
+	printf("%s\n", path);
+	return (EXIT_SUCCESS);
+	(void)argv;
+	(void)msh;
 }

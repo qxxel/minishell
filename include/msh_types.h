@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 16:45:19 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:17:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_redirect
 {
 	bool	option;
 	bool	out;
-	char	*name;
+	char	*path;
 }	t_redirect;
 
 typedef struct s_cmd
@@ -33,9 +33,9 @@ typedef struct s_cmd
 typedef struct s_msh
 {
 	char	**envp;
-	size_t	envc;
 	size_t	n_cmds;
 	t_cmd	*cmds;
+	t_list	*declare;
 }	t_msh;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_commons.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/26 16:39:00 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:16:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@
 # include "libft.h"
 # include "msh_types.h"
 
-char	*get_env_var(char *name, size_t len, char **envp);
+int		ft_cd(char **argv, t_msh *msh);
+int		ft_echo(char **argv, t_msh *msh);
+int		ft_env(char **argv, t_msh *msh);
+int		ft_exit(char **argv, t_msh *msh);
+int		ft_export(char **argv, t_msh *msh);
+int		ft_pwd(char **argv, t_msh *msh);
+int		ft_unset(char **argv, t_msh *msh);
+char	*get_env_var(char *id, size_t len, char **envp);
+bool	init_envp(char **src, char ***envp);
+bool	set_env_var(char *var, size_t id_len, char ***envp);
+bool	set_env_var_id(char *id, char *value, char ***envp);
+void	shift_strs(char **strs, bool free_str);
 
 #endif

@@ -1,20 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_msh.c                                         :+:      :+:    :+:   */
+/*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 11:58:51 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/28 15:48:38 by deydoux           #+#    #+#             */
+/*   Updated: 2024/06/28 15:49:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_msh(t_msh msh)
+bool	init_envp(char **src, char ***envp)
 {
-	free_nptr(2, msh.envp);
-	free_cmds(msh.cmds, msh.n_cmds);
-	ft_lstclear(&msh.declare, free);
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+		i++;
+	*envp = malloc((i + 1) * sizeof(**envp));
+	if (!*envp)
+	{
+		perror("malloc");
+		return (true);
+	}
+	i = 0;
+	while (src[i])
+	{
+		(*envp)[i] = ft_strdup(src[i]);
+		if (!(*envp)[i])
+		{
+			perror("malloc");
+			return (true);
+		}
+		i++;
+	}
+	(*envp)[i] = NULL;
+	return (false);
 }
