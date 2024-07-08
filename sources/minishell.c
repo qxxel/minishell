@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 16:42:08 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 14:48:18 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ static void	debug_print_redirects(t_cmd cmd)
 	{
 		if (i)
 			printf(",\n");
-		printf("\t\t{\n\t\t\t.option = %d,\n\t\t\t.out = %d,\n\t\t\t\
-.path = \"%s\"\n\t\t}", cmd.redirects[i].option, cmd.redirects[i].out,
+		printf("\t\t{\n\t\t\t.expand = %d,\n\t\t\t.option = %d,\
+\n\t\t\t.out = %d,\n\t\t\t.path = \"%s\"\n\t\t}", cmd.redirects[i].expand,
+			cmd.redirects[i].option, cmd.redirects[i].out,
 			cmd.redirects[i].path);
 		i++;
 	}

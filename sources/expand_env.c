@@ -6,11 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 16:57:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 11:08:13 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmds.h"
+#include "minishell.h"
 
 static bool	init_expand(size_t size, char **expand)
 {

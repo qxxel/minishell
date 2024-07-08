@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:55:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 08:58:31 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 14:53:20 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,33 @@ static bool	create_redirects(char **strs, t_cmd *cmd)
 	return (false);
 }
 
+static void	update_delimiter(t_redirect *redirect)
+{
+	size_t	i;
+	size_t	shift;
+
+	if (redirect->out || !redirect->option)
+		return ;
+	i = 0;
+	shift = 0;
+	while (redirect->path[i + shift])
+	{
+		if (ft_strchr(QUOTES, redirect->path[i + shift])
+			|| (redirect->path[i + shift] == '$'
+				&& ft_strchr(QUOTES, redirect->path[i + shift + 1])))
+		{
+			redirect->expand = false;
+			shift++;
+		}
+		else
+		{
+			redirect->path[i] = redirect->path[i + shift];
+			i++;
+		}
+	}
+	redirect->path[i] = 0;
+}
+
 static bool	init_redirects(char **strs, t_cmd *cmd)
 {
 	size_t	i_redirect;
@@ -52,11 +79,10 @@ static bool	init_redirects(char **strs, t_cmd *cmd)
 			continue ;
 		}
 		unsign_str(strs[i_str + 1]);
-		cmd->redirects[i_redirect++] = (t_redirect){
-			.path = strs[i_str + 1],
-			.out = strs[i_str][0] == '>',
-			.option = strs[i_str][1] != 0
-		};
+		cmd->redirects[i_redirect] = (t_redirect){.expand = true,
+			.path = strs[i_str + 1], .out = strs[i_str][0] == '>',
+			.option = strs[i_str][1] != 0};
+		update_delimiter(&cmd->redirects[i_redirect++]);
 		shift_strs(&strs[i_str], true);
 		shift_strs(&strs[i_str], false);
 	}

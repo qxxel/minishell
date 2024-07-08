@@ -7,6 +7,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_export.c		\
 						builtins/ft_pwd.c			\
 						builtins/ft_unset.c			\
+						expand_env.c				\
 						free_cmds.c					\
 						free_msh.c					\
 						get_env_var.c				\
@@ -14,13 +15,12 @@ SOURCES				=	builtins/ft_cd.c			\
 						init_msh.c					\
 						minishell.c					\
 						parse_cmds/check_syntax.c	\
-						parse_cmds/expand_env.c		\
 						parse_cmds/expand_quotes.c	\
 						parse_cmds/init_cmds.c		\
 						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
-						parse_cmds/sign_quotes.c	\
+						parse_cmds/sign_expansion.c	\
 						parse_cmds/unsign_str.c		\
 						set_env_var.c				\
 						set_env_var_id.c			\
