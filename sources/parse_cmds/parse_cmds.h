@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 11:06:07 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 12:40:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "msh_commons.h"
 
+# define DELIMITER_SEPARATORS	" <|>"
 # define EXPECTED_CHAR_ERROR	"minishell: syntax error near unexpected token \
 `%c'\n"
 # define EXPECTED_CHARS_ERROR	"minishell: syntax error near unexpected token \
@@ -31,7 +32,7 @@ bool	expand_quotes(char **str, char **envp);
 bool	init_cmds(char **strs, t_msh *msh);
 bool	join_strs(char **strs);
 bool	msh_split(char *str, char ***strs);
-bool	sign_quotes(char *str);
+bool	sign_expansion(char *str);
 void	unsign_str(char *str);
 
 #endif

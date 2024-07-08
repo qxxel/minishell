@@ -20,7 +20,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						parse_cmds/join_strs.c		\
 						parse_cmds/msh_split.c		\
 						parse_cmds/parse_cmds.c		\
-						parse_cmds/sign_quotes.c	\
+						parse_cmds/sign_expansion.c	\
 						parse_cmds/unsign_str.c		\
 						set_env_var.c				\
 						set_env_var_id.c			\

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sign_quotes.c                                      :+:      :+:    :+:   */
+/*   sign_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 18:32:16 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 12:40:22 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
 
-bool	sign_quotes(char *str)
+static bool	sign_quotes(char *str)
 {
 	char	quote;
 	size_t	i;
@@ -38,4 +38,34 @@ bool	sign_quotes(char *str)
 		return (true);
 	}
 	return (false);
+}
+
+static bool	sign_here_doc(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '<' && str[i + 1] == '<')
+		{
+			i += 2;
+			while (str[i] == ' ')
+				i++;
+			while (str[i] && !ft_strchr(DELIMITER_SEPARATORS, str[i]))
+			{
+				if (str[i] == '$')
+					str[i] *= -1;
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	return (false);
+}
+
+bool	sign_expansion(char *str)
+{
+	return (sign_quotes(str) || sign_here_doc(str));
 }
