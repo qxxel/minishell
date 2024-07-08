@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 14:48:18 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 16:46:27 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ int	main(int argc, char **argv, char **envp)
 	printf("\n");
 	parse_cmds(str, &msh);
 	debug_print_cmds(msh);
-	free_msh(msh);
+	destroy_msh(msh);
 	return (EXIT_SUCCESS);
 }
