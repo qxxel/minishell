@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   get_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 18:24:12 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/08 18:29:04 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/08 18:38:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "exec_cmds.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+t_builtin	get_builtin(char *name)
 {
-	bool	expand;
-	bool	option;
-	bool	out;
-	char	*path;
-}	t_redirect;
+	const char		*names[] = {"cd", "echo", "env", "exit", "export", "pwd",
+		"unset", NULL};
+	const t_builtin	builtins[] = {ft_cd, ft_echo, ft_env, ft_exit, ft_export,
+		ft_pwd, ft_unset};
+	size_t			i;
 
-typedef struct s_cmd
-{
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-	pid_t		pid;
-}	t_cmd;
-
-typedef struct s_msh
-{
-	char	**envp;
-	int		fd[2];
-	int		status;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-	t_list	*declare;
-}	t_msh;
-
-#endif
+	if (!name)
+		return (NULL);
+	i = 0;
+	while (names[i])
+	{
+		if (!ft_strcmp(name, names[i]))
+			return (builtins[i]);
+		else
+			i++;
+	}
+	return (NULL);
+}

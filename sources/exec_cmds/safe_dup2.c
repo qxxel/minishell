@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   safe_dup2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/06/13 15:19:11 by agerbaud         ###   ########.fr       */
+/*   Created: 2024/07/08 17:56:41 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/08 17:57:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "exec_cmds.h"
 
-# include "msh_commons.h"
-
-char	*get_path(char *command, char **paths);
-
-#endif
+void	safe_dup2(int new_fd, int old_fd)
+{
+	if (new_fd < 0)
+		return (false);
+	dup2(new_fd, old_fd);
+	close(new_fd);
+}

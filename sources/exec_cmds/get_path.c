@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:18:16 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/06/13 15:18:46 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:06:42 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "exec_cmds.h"
 
 static char	*join_path(char *start, char *end)
 {
