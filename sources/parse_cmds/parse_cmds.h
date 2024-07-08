@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 17:21:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 11:06:07 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 matching `%s'\nminishell: syntax error: unexpected end of file\n"
 
 bool	check_syntax(char **strs);
-bool	expand_env(char **str, char **envp);
 bool	expand_quotes(char **str, char **envp);
 bool	init_cmds(char **strs, t_msh *msh);
 bool	join_strs(char **strs);
