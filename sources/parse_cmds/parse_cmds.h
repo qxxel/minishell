@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 12:40:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 14:40:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define QUOTES					"\"'"
 # define SEPARATORS				" \"'<|>"
 # define UNEXPECTED_EOF_ERROR	"minishell: unexpected EOF while looking for \
-matching `%s'\nminishell: syntax error: unexpected end of file\n"
+matching `%c'\nminishell: syntax error: unexpected end of file\n"
 
 bool	check_syntax(char **strs);
 bool	expand_quotes(char **str, char **envp);
