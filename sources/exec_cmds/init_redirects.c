@@ -6,13 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 18:04:46 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:59:22 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
-
-
 
 static int	open_redirect(t_redirect redirect)
 {
