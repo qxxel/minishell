@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sign_str.c                                         :+:      :+:    :+:   */
+/*   sign_expansion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 12:40:22 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/08 13:54:52 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	sign_quotes(char *str)
 	return (false);
 }
 
-static bool	sign_here_doc(char *str)
+static bool	sign_delimiter(char *str)
 {
 	size_t	i;
 
@@ -54,7 +54,7 @@ static bool	sign_here_doc(char *str)
 				i++;
 			while (str[i] && !ft_strchr(DELIMITER_SEPARATORS, str[i]))
 			{
-				if (str[i] == '$')
+				if (str[i] > 0)
 					str[i] *= -1;
 				i++;
 			}
@@ -67,5 +67,5 @@ static bool	sign_here_doc(char *str)
 
 bool	sign_expansion(char *str)
 {
-	return (sign_quotes(str) || sign_here_doc(str));
+	return (sign_quotes(str) || sign_delimiter(str));
 }
