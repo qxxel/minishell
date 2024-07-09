@@ -11,7 +11,6 @@ SOURCES				=	builtins/ft_cd.c			\
 						exec_cmds/exec_cmds.c		\
 						exec_cmds/get_builtin.c		\
 						exec_cmds/init_redirects.c	\
-						exec_cmds/safe_close.c		\
 						exec_cmds/safe_dup2.c		\
 						expand_env.c				\
 						free_cmds.c					\
@@ -28,6 +27,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						parse_cmds/parse_cmds.c		\
 						parse_cmds/sign_expansion.c	\
 						parse_cmds/unsign_str.c		\
+						safe_close.c				\
 						set_env_var_id.c			\
 						set_env_var.c				\
 						shift_strs.c

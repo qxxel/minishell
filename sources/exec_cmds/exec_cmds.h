@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/09 14:38:01 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:53:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef enum e_redirect_flag
 t_builtin	get_builtin(char *name);
 char		*get_path(char *command, char **paths);
 void		init_redirects(t_cmd cmd, char **envp);
-void		safe_close(int *fd);
 void		safe_dup2(int new_fd, int old_fd);
 
 #endif

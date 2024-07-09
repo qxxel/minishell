@@ -6,11 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 13:25:43 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 13:26:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:42:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmds.h"
+#include "minishell.h"
 
 void	safe_close(int *fd)
 {
