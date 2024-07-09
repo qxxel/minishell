@@ -8,6 +8,11 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_pwd.c			\
 						builtins/ft_unset.c			\
 						destroy_msh.c				\
+						exec_cmds/exec_cmds.c		\
+						exec_cmds/get_builtin.c		\
+						exec_cmds/init_redirects.c	\
+						exec_cmds/safe_close.c		\
+						exec_cmds/safe_dup2.c		\
 						expand_env.c				\
 						free_cmds.c					\
 						get_env_var.c				\

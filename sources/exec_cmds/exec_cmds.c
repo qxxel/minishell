@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/08 18:57:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:56:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,17 @@ static bool	parent_builtin(t_cmd cmd, t_msh *msh)
 	builtin = get_builtin(cmd.argv[0]);
 	if (!builtin)
 		return (false);
-	init_redirects(cmd);
+	init_redirects(cmd, msh->envp);
 	msh->status = builtin(cmd.argv, msh);
 	dup2(msh->fd[0], STDIN_FILENO);
 	dup2(msh->fd[1], STDOUT_FILENO);
 	return (true);
 }
 
-static void	safe_close(int *fd)
-{
-	if (*fd < 0)
-		return ;
-	close(*fd);
-	*fd = -1;
-}
-
 static bool	exec_cmd_child(t_cmd *cmd, t_exec_fd fd, t_msh *msh)
 {
+	t_builtin	builtin;
+
 	cmd->pid = fork();
 	if (cmd->pid)
 	{
@@ -51,7 +45,11 @@ static bool	exec_cmd_child(t_cmd *cmd, t_exec_fd fd, t_msh *msh)
 	close(fd.pipe[0]);
 	safe_dup2(fd.in, STDIN_FILENO);
 	safe_dup2(fd.pipe[1], STDOUT_FILENO);
-	init_redirects(*cmd);
+	init_redirects(*cmd, msh->envp);
+	builtin = get_builtin(cmd->argv[0]);
+	if (builtin)
+		exit(builtin(cmd->argv, msh));
+	exit(EXIT_FAILURE);
 }
 
 static bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)
@@ -65,6 +63,7 @@ static bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)
 	safe_close(&fd->in);
 	fd->in = fd->pipe[0];
 	safe_close(&fd->pipe[1]);
+	return (false);
 }
 
 bool	exec_cmds(t_msh *msh)

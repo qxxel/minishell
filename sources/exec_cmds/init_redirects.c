@@ -6,13 +6,46 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 18:59:22 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 14:38:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
 
-static int	open_redirect(t_redirect redirect)
+static int	heredoc_pipe_error(void)
+{
+	perror("pipe");
+	return (-1);
+}
+
+static int	heredoc(t_redirect redirect, char **envp)
+{
+	char	*str;
+	int		pipe_fd[2];
+
+	if (pipe(pipe_fd))
+		return (heredoc_pipe_error());
+	while (true)
+	{
+		str = readline("> ");
+		if (!str || !ft_strcmp(redirect.path, str))
+			break ;
+		if (redirect.expand && expand_env(&str, envp))
+		{
+			safe_close(&pipe_fd[0]);
+			break ;
+		}
+		ft_putendl_fd(str, pipe_fd[1]);
+		free(str);
+	}
+	free(str);
+	if (!str)
+		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, redirect.path);
+	close(pipe_fd[1]);
+	return (pipe_fd[0]);
+}
+
+static int	open_redirect(t_redirect redirect, char **envp)
 {
 	int				fd;
 	t_redirect_flag	flag;
@@ -27,7 +60,7 @@ static int	open_redirect(t_redirect redirect)
 	else
 	{
 		if (redirect.option)
-			return (-69420);
+			return (heredoc(redirect, envp));
 		else
 			flag = redirect_in_flag;
 	}
@@ -37,14 +70,14 @@ static int	open_redirect(t_redirect redirect)
 	return (fd);
 }
 
-void	init_redirects(t_cmd cmd)
+void	init_redirects(t_cmd cmd, char **envp)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < cmd.n_redirects)
 	{
-		safe_dup2(open_redirect(cmd.redirects[i]), cmd.redirects[i].out);
+		safe_dup2(open_redirect(cmd.redirects[i], envp), cmd.redirects[i].out);
 		i++;
 	}
 }
