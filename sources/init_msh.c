@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 18:12:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 21:28:02 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,32 @@ static bool	update_shlvl_env(t_msh *msh)
 	return (status);
 }
 
+static bool	declare_old_pwd(t_msh *msh)
+{
+	char	*str;
+	t_list	*declare;
+
+	str = ft_strdup("OLDPWD");
+	if (!str)
+	{
+		perror("malloc");
+		return (true);
+	}
+	declare = ft_lstnew(str);
+	if (!declare)
+	{
+		perror("malloc");
+		free(str);
+		return (true);
+	}
+	ft_lstadd_back(&msh->declare, declare);
+	return (false);
+}
+
 bool	init_msh(char **envp, t_msh *msh)
 {
 	ft_bzero(msh, sizeof(*msh));
 	dup_std_fd(msh->fd);
 	return (init_envp(envp, &msh->envp) || restore_pwd_env(msh)
-		|| update_shlvl_env(msh));
+		|| update_shlvl_env(msh) || declare_old_pwd(msh));
 }
