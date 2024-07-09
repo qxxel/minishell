@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 16:44:48 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 21:41:46 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	close_msh_fd(int fd[2])
 
 static void	free_msh(t_msh msh)
 {
-	clear_history();
+	rl_clear_history();
 	free_nptr(2, msh.envp);
 	ft_lstclear(&msh.declare, free);
 }
