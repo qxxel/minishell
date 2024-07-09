@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 17:30:43 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:12:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static bool	dup_std_fd(int fd[2])
 	return (false);
 }
 
-static bool	restore_pwd_env(char ***envp)
+static bool	restore_pwd_env(t_msh *msh)
 {
 	bool	status;
 	char	*str;
 
 	status = false;
-	if (!get_env_var("PWD", 3, *envp))
+	if (!get_env_var("PWD", 3, msh->envp))
 	{
 		str = getcwd(NULL, 0);
 		if (!str)
@@ -44,21 +44,21 @@ static bool	restore_pwd_env(char ***envp)
 			perror("getcwd");
 			return (true);
 		}
-		status = set_env_var_id("PWD", str, envp);
+		status = set_env_var_id("PWD", str, msh);
 		free(str);
 	}
 	return (status);
 }
 
-static bool	update_shlvl_env(char ***envp)
+static bool	update_shlvl_env(t_msh *msh)
 {
 	bool	status;
 	char	*str;
 	int		shlvl;
 
-	str = get_env_var("SHLVL", 5, *envp);
+	str = get_env_var("SHLVL", 5, msh->envp);
 	if (!str)
-		return (set_env_var_id("SHLVL", "1", envp));
+		return (set_env_var_id("SHLVL", "1", msh));
 	shlvl = ft_atoi(str) + 1;
 	if (shlvl < 0)
 		shlvl = 0;
@@ -68,7 +68,7 @@ static bool	update_shlvl_env(char ***envp)
 		perror("malloc");
 		return (true);
 	}
-	status = set_env_var_id("SHLVL", str, envp);
+	status = set_env_var_id("SHLVL", str, msh);
 	free(str);
 	return (status);
 }
@@ -77,6 +77,6 @@ bool	init_msh(char **envp, t_msh *msh)
 {
 	ft_bzero(msh, sizeof(*msh));
 	dup_std_fd(msh->fd);
-	return (init_envp(envp, &msh->envp) || restore_pwd_env(&msh->envp)
-		|| update_shlvl_env(&msh->envp));
+	return (init_envp(envp, &msh->envp) || restore_pwd_env(msh)
+		|| update_shlvl_env(msh));
 }

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 08:26:17 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/24 09:01:24 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:21:12 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,23 @@ static bool	expand_envp(char *var, size_t size, char ***envp)
 	return (false);
 }
 
-bool	set_env_var(char *var, size_t id_len, char ***envp)
+bool	set_env_var(char *var, size_t id_len, t_msh *msh)
 {
 	size_t	i;
 
 	i = 0;
-	while ((*envp)[i] && (ft_strncmp(var, (*envp)[i], id_len)
-		|| (*envp)[i][id_len] != '='))
+	while (msh->envp[i] && (ft_strncmp(var, msh->envp[i], id_len)
+			|| msh->envp[i][id_len] != '='))
 		i++;
-	if ((*envp)[i])
+	if (msh->envp[i])
 	{
-		free((*envp)[i]);
-		(*envp)[i] = var;
-		return (false);
+		free(msh->envp[i]);
+		msh->envp[i] = var;
 	}
-	return (expand_envp(var, i, envp));
+	else if (expand_envp(var, i, &msh->envp))
+		return (true);
+	var[id_len] = 0;
+	unset_declare(var, &msh->declare);
+	var[id_len] = '=';
+	return (false);
 }

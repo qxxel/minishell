@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 13:57:39 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:09:38 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	set_var(char *var, size_t id_len, t_msh *msh)
 	}
 	if (var[id_len] == '=')
 	{
-		if (set_env_var(var, id_len, &msh->envp))
+		if (set_env_var(var, id_len, msh))
 			return (true);
 	}
 	else

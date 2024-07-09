@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 16:14:32 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:10:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int		ft_unset(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
 bool	init_envp(char **src, char ***envp);
 char	*join_path(char *path1, char *path2);
-bool	set_env_var(char *var, size_t id_len, char ***envp);
-bool	set_env_var_id(char *id, char *value, char ***envp);
+void	safe_close(int *fd);
+bool	set_env_var(char *var, size_t id_len, t_msh *msh);
+bool	set_env_var_id(char *id, char *value, t_msh *msh);
 void	shift_strs(char **strs, bool free_str);
+void	unset_declare(char *id, t_list **declare);
 
 #endif

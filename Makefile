@@ -30,7 +30,8 @@ SOURCES				=	builtins/ft_cd.c			\
 						safe_close.c				\
 						set_env_var_id.c			\
 						set_env_var.c				\
-						shift_strs.c
+						shift_strs.c				\
+						unset_declare.c
 
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources

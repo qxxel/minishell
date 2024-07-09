@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:48:56 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 15:59:28 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 18:15:11 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static bool	generate_env_var(char *id, size_t id_len, char *value, char **var)
 	return (false);
 }
 
-bool	set_env_var_id(char *id, char *value, char ***envp)
+bool	set_env_var_id(char *id, char *value, t_msh *msh)
 {
 	char	*var;
 	size_t	id_len;
 
 	id_len = ft_strlen(id);
 	return (generate_env_var(id, id_len, value, &var)
-		|| set_env_var(var, id_len, envp));
+		|| set_env_var(var, id_len, msh));
 }
