@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 17:25:40 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 17:30:43 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	restore_pwd_env(char ***envp)
 		str = getcwd(NULL, 0);
 		if (!str)
 		{
-			perror("malloc");
+			perror("getcwd");
 			return (true);
 		}
 		status = set_env_var_id("PWD", str, envp);
@@ -50,7 +50,7 @@ static bool	restore_pwd_env(char ***envp)
 	return (status);
 }
 
-static bool	update_shlvl(char ***envp)
+static bool	update_shlvl_env(char ***envp)
 {
 	bool	status;
 	char	*str;
@@ -78,5 +78,5 @@ bool	init_msh(char **envp, t_msh *msh)
 	ft_bzero(msh, sizeof(*msh));
 	dup_std_fd(msh->fd);
 	return (init_envp(envp, &msh->envp) || restore_pwd_env(&msh->envp)
-		|| update_shlvl(&msh->envp));
+		|| update_shlvl_env(&msh->envp));
 }
