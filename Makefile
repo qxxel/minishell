@@ -18,6 +18,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						get_env_var.c				\
 						init_envp.c					\
 						init_msh.c					\
+						join_path.c					\
 						minishell.c					\
 						parse_cmds/check_syntax.c	\
 						parse_cmds/expand_quotes.c	\

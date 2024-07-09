@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   join_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 15:18:16 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/09 16:14:21 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/09 15:55:48 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/09 16:14:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmds.h"
+#include "minishell.h"
 
-char	*get_path(char *command, char **paths)
+char	*join_path(char *path1, char *path2)
 {
 	char	*path;
+	size_t	size;
 
-	if (!command)
-		return (NULL);
-	if (ft_strchr(command, '/'))
-		return (ft_strdup(command));
-	if (!paths)
-		return (NULL);
-	while (*paths)
+	size = ft_strlen(path1) + ft_strlen(path2) + 2;
+	path = malloc(sizeof(char) * size);
+	if (!path)
 	{
-		path = join_path(*paths++, command);
-		if (!path || access(path, F_OK) == 0)
-			return (path);
-		free(path);
+		perror("malloc");
+		return (NULL);
 	}
-	return (NULL);
+	ft_strlcpy(path, path1, size);
+	ft_strlcat(path, "/", size);
+	ft_strlcat(path, path2, size);
+	return (path);
 }
