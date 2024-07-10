@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 18:10:31 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:56:38 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@
 # include "libft.h"
 # include "msh_types.h"
 
+void	destroy_msh(t_msh msh);
 bool	expand_env(char **str, char **envp);
+void	free_cmds(t_cmd *cmds, size_t n);
 int		ft_cd(char **argv, t_msh *msh);
 int		ft_echo(char **argv, t_msh *msh);
 int		ft_env(char **argv, t_msh *msh);

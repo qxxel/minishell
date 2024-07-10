@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:04:15 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 17:10:17 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:03:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,24 @@ static bool	str_is_digits(char *str)
 
 int	ft_exit(char **argv, t_msh *msh)
 {
+	int	status;
+
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!argv[0] || !argv[1])
-		exit(EXIT_SUCCESS);
-	if (!str_is_digits(argv[1]))
+		status = EXIT_SUCCESS;
+	else if (!str_is_digits(argv[1]))
 	{
 		ft_dprintf(STDERR_FILENO, EXIT_ARG_ERROR, argv[1]);
-		exit(2);
+		status = 2;
 	}
-	if (argv[2])
+	else if (argv[2])
 	{
 		ft_putstr_fd(EXIT_ARGS_ERROR, STDERR_FILENO);
 		return (1);
 	}
-	exit(ft_atoi(argv[1]));
-	(void)msh;
+	else
+		status = ft_atoi(argv[1]);
+	free_cmds(msh->cmds, msh->n_cmds);
+	destroy_msh(*msh);
+	exit(status);
 }
