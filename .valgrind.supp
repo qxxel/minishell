@@ -1,4 +1,11 @@
 {
+	below main
+	Memcheck:Leak
+	...
+	fun:(below main)
+}
+
+{
 	readline
 	Memcheck:Leak
 	...
