@@ -1,8 +1,8 @@
 {
-	below main
+	System binaries
 	Memcheck:Leak
 	...
-	fun:(below main)
+	obj:/usr/bin/*
 }
 
 {
