@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/11 15:42:32 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/11 16:04:19 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,17 @@ static void	exec_bin(t_cmd *cmd, t_msh *msh)
 	free_nptr(2, paths);
 	if (!bin_path)
 	{
-		ft_dprintf(STDERR_FILENO, CMD_NOT_FOUND_ERROR, argv[0]);
-		exit(CMD_NOT_FOUND_CODE);
+		ft_dprintf(STDERR_FILENO, CMD_ENOENT_ERROR, argv[0]);
+		exit(ENOENT_EXIT_CODE);
 	}
-	if (access(bin_path, X_OK))
+	if (access(bin_path, R_OK | X_OK))
+	{
 		ft_dprintf(STDERR_FILENO, FILE_ERROR, bin_path, strerror(errno));
+		if (errno == ENOENT)
+			exit(ENOENT_EXIT_CODE);
+		else if (errno == EACCES)
+			exit(EACCES_EXIT_CODE);
+	}
 	else if (execve(bin_path, argv, envp))
 		perror("execve");
 }
