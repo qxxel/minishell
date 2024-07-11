@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/09 15:56:57 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:39:25 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,39 @@ static bool	parent_builtin(t_cmd cmd, t_msh *msh)
 	t_builtin	builtin;
 
 	if (!cmd.argv[0])
-		return (false);
+		return (true);
 	builtin = get_builtin(cmd.argv[0]);
 	if (!builtin)
-		return (false);
+		return (true);
 	init_redirects(cmd, msh->envp);
 	msh->status = builtin(cmd.argv, msh);
 	dup2(msh->fd[0], STDIN_FILENO);
 	dup2(msh->fd[1], STDOUT_FILENO);
-	return (true);
+	return (false);
 }
 
-static bool	exec_cmd_child(t_cmd *cmd, t_exec_fd fd, t_msh *msh)
+static bool	update_paths(char *path_var, t_msh *msh)
 {
-	t_builtin	builtin;
+	char		**paths;
+	static char	*cache = NULL;
 
-	cmd->pid = fork();
-	if (cmd->pid)
+	if (!path_var)
 	{
-		if (cmd->pid < 0)
-		{
-			perror("fork");
-			return (true);
-		}
+		free(msh->paths);
+		msh->paths = NULL;
 		return (false);
 	}
-	close(fd.pipe[0]);
-	safe_dup2(fd.in, STDIN_FILENO);
-	safe_dup2(fd.pipe[1], STDOUT_FILENO);
-	init_redirects(*cmd, msh->envp);
-	builtin = get_builtin(cmd->argv[0]);
-	if (builtin)
-		exit(builtin(cmd->argv, msh));
-	exit(EXIT_FAILURE);
-}
-
-static bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)
-{
-	if (last && pipe(fd->pipe))
+	if (path_var == cache)
+		return (false);
+	paths = ft_split(path_var, ':');
+	if (!paths)
 	{
-		perror("pipe");
+		perror("malloc");
 		return (true);
 	}
-	exec_cmd_child(cmd, *fd, msh);
-	safe_close(&fd->in);
-	fd->in = fd->pipe[0];
-	safe_close(&fd->pipe[1]);
+	free(msh->paths);
+	msh->paths = paths;
+	cache = path_var;
 	return (false);
 }
 
@@ -72,14 +59,16 @@ bool	exec_cmds(t_msh *msh)
 	size_t		i;
 	t_exec_fd	fd;
 
-	if (msh->n_cmds == 1 && parent_builtin(msh->cmds[0], msh))
+	if (msh->n_cmds == 1 && !parent_builtin(msh->cmds[0], msh))
 		return (false);
 	fd.in = -1;
 	ft_memset(&fd, -1, sizeof(fd));
+	update_paths(get_env_var("PATH", 4, msh->envp), msh);
+	status = false;
 	i = 0;
 	while (i < msh->n_cmds && !status)
 	{
-		status = exec_cmd(&msh->cmds[i], i + 1 != msh->n_cmds, &fd, msh);
+		status = exec_cmd(&msh->cmds[i], i + 1 == msh->n_cmds, &fd, msh);
 		i++;
 	}
 	safe_close(&fd.in);
