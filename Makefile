@@ -8,6 +8,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_pwd.c			\
 						builtins/ft_unset.c			\
 						destroy_msh.c				\
+						exec_cmds/exec_bin.c		\
 						exec_cmds/exec_cmd.c		\
 						exec_cmds/exec_cmds.c		\
 						exec_cmds/get_builtin.c		\

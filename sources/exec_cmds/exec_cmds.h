@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/11 15:56:42 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 14:11:40 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ typedef struct s_exec_fd
 	int	pipe[2];
 }	t_exec_fd;
 
+typedef struct s_exec_context
+{
+	char	**argv;
+	char	**envp;
+	char	*bin;
+}	t_exec_context;
+
 typedef int	(*t_builtin)(char **, t_msh *);
 
 typedef enum e_redirect_flag
@@ -38,6 +45,7 @@ typedef enum e_redirect_flag
 	redirect_out_flag = O_WRONLY | O_CREAT | O_TRUNC
 }	t_redirect_flag;
 
+void		exec_bin(t_cmd *cmd, t_msh *msh);
 bool		exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh);
 t_builtin	get_builtin(char *name);
 void		init_redirects(t_cmd cmd, char **envp);
