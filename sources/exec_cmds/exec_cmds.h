@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/12 14:34:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 14:59:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ delimited by end-of-file (wanted `%s')\n"
 # define FILE_ERROR				"minishell: %s: %s\n"
 # define REDIRECT_OPEN_MODE		0666
 
-typedef struct s_exec_fd
-{
-	int	in;
-	int	pipe[2];
-}	t_exec_fd;
+typedef int	(*t_builtin)(char **, t_msh *);
 
 typedef struct s_exec_context
 {
@@ -36,7 +32,18 @@ typedef struct s_exec_context
 	char	*bin;
 }	t_exec_context;
 
-typedef int	(*t_builtin)(char **, t_msh *);
+typedef struct s_exec_fd
+{
+	int	in;
+	int	pipe[2];
+}	t_exec_fd;
+
+typedef struct s_heredoc_context
+{
+	char	*str;
+	int		line;
+	int		pipe[2];
+}	t_heredoc_context;
 
 typedef enum e_redirect_flag
 {

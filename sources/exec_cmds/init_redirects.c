@@ -6,43 +6,48 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/12 14:54:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:02:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
 
+static void	heredoc_read(t_redirect redirect, char **envp,
+	t_heredoc_context *context)
+{
+	while (true)
+	{
+		context->str = readline("> ");
+		if (!context->str || !ft_strcmp(redirect.path, context->str))
+			return ;
+		if (redirect.expand && expand_env(&context->str, envp))
+		{
+			safe_close(&context->pipe[0]);
+			return ;
+		}
+		ft_putendl_fd(context->str, context->pipe[1]);
+		free(context->str);
+		context->line++;
+	}
+}
+
 static int	heredoc(t_redirect redirect, char **envp)
 {
-	char	*str;
-	int		line;
-	int		pipe_fd[2];
+	t_heredoc_context	context;
 
-	if (pipe(pipe_fd))
+	if (pipe(context.pipe))
 	{
 		perror("pipe");
 		return (-1);
 	}
-	line = 1;
-	while (true)
-	{
-		str = readline("> ");
-		if (!str || !ft_strcmp(redirect.path, str))
-			break ;
-		if (redirect.expand && expand_env(&str, envp))
-		{
-			safe_close(&pipe_fd[0]);
-			break ;
-		}
-		ft_putendl_fd(str, pipe_fd[1]);
-		free(str);
-		line++;
-	}
-	free(str);
-	if (!str)
-		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, line, redirect.path);
-	close(pipe_fd[1]);
-	return (pipe_fd[0]);
+	context.line = 1;
+	heredoc_read(redirect, envp, &context);
+	free(context.str);
+	if (!context.str)
+		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, context.line,
+			redirect.path);
+	close(context.pipe[1]);
+	return (context.pipe[0]);
 }
 
 static int	open_redirect(t_redirect redirect, char **envp)
