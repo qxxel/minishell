@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 21:28:02 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 18:06:28 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static bool	declare_old_pwd(t_msh *msh)
 	char	*str;
 	t_list	*declare;
 
+	if (get_env_var("OLDPWD", 6, msh->envp))
+		return (false);
 	str = ft_strdup("OLDPWD");
 	if (!str)
 	{
