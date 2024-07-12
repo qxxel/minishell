@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:32:28 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/12 14:20:31 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 18:37:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ static void	exec_bin_exit(int status, t_exec_context context)
 	exit(status);
 }
 
+static bool	is_dir(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir)
+	{
+		closedir(dir);
+		return (true);
+	}
+	return (false);
+}
+
 static bool	access_bin(t_exec_context context)
 {
 	if (!context.bin)
@@ -57,6 +70,11 @@ static bool	access_bin(t_exec_context context)
 		else if (errno == EACCES)
 			exec_bin_exit(EACCES_EXIT_CODE, context);
 		return (true);
+	}
+	else if (is_dir(context.bin))
+	{
+		ft_dprintf(STDERR_FILENO, PATH_IS_DIR, context.bin);
+		exec_bin_exit(EACCES_EXIT_CODE, context);
 	}
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/12 14:59:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 18:37:11 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ delimited by end-of-file (wanted `%s')\n"
 # define EACCES_EXIT_CODE		126
 # define ENOENT_EXIT_CODE		127
 # define FILE_ERROR				"minishell: %s: %s\n"
+# define PATH_IS_DIR			"minishell: %s: Is a directory\n"
 # define REDIRECT_OPEN_MODE		0666
 
 typedef int	(*t_builtin)(char **, t_msh *);
