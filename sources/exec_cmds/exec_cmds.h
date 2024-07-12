@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/12 14:11:40 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 14:34:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "msh_commons.h"
 
 # define CMD_ENOENT_ERROR		"%s: command not found\n"
-# define DELIMITER_WARNING		"minishell: warning: here-document at line 2 \
+# define DELIMITER_WARNING		"minishell: warning: here-document at line %d \
 delimited by end-of-file (wanted `%s')\n"
 # define EACCES_EXIT_CODE		126
 # define ENOENT_EXIT_CODE		127

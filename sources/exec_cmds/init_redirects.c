@@ -6,25 +6,24 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 14:38:01 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/12 14:54:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
 
-static int	heredoc_pipe_error(void)
-{
-	perror("pipe");
-	return (-1);
-}
-
 static int	heredoc(t_redirect redirect, char **envp)
 {
 	char	*str;
+	int		line;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd))
-		return (heredoc_pipe_error());
+	{
+		perror("pipe");
+		return (-1);
+	}
+	line = 1;
 	while (true)
 	{
 		str = readline("> ");
@@ -37,10 +36,11 @@ static int	heredoc(t_redirect redirect, char **envp)
 		}
 		ft_putendl_fd(str, pipe_fd[1]);
 		free(str);
+		line++;
 	}
 	free(str);
 	if (!str)
-		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, redirect.path);
+		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, line, redirect.path);
 	close(pipe_fd[1]);
 	return (pipe_fd[0]);
 }
