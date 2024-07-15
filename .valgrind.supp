@@ -1,8 +1,8 @@
 {
-	System binaries
+	usr
 	Memcheck:Leak
 	...
-	obj:/usr/bin/*
+	obj:/usr/*
 }
 
 {
