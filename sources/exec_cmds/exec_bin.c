@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:32:28 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/12 18:37:47 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:22:19 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*get_bin_path(char *name, char **paths)
 	char	*path;
 	size_t	i;
 
+	if (!name)
+		return (NULL);
 	if (ft_strchr(name, '/'))
 		return (ft_strdup(name));
 	if (!paths)
@@ -87,18 +89,15 @@ void	exec_bin(t_cmd *cmd, t_msh *msh)
 	context.argv = cmd->argv;
 	context.envp = msh->envp;
 	paths = msh->paths;
-	if (context.argv[0])
-	{
-		cmd->argv = NULL;
-		msh->envp = NULL;
-		msh->paths = NULL;
-	}
+	cmd->argv = NULL;
+	msh->envp = NULL;
+	msh->paths = NULL;
 	free_cmds(msh->cmds, msh->n_cmds);
 	destroy_msh(*msh);
-	if (!context.argv[0])
-		return ;
 	context.bin = get_bin_path(context.argv[0], paths);
 	free_nptr(2, paths);
+	if (!context.argv[0])
+		exec_bin_exit(EXIT_SUCCESS, context);
 	if (!access_bin(context) && execve(context.bin, context.argv, context.envp))
 		perror("execve");
 	exec_bin_exit(EXIT_FAILURE, context);
