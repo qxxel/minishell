@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_msh.c                                         :+:      :+:    :+:   */
+/*   safe_dup2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/27 11:58:51 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/08 17:56:41 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/09 14:38:01 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec_cmds.h"
 
-void	free_msh(t_msh msh)
+void	safe_dup2(int new_fd, int old_fd)
 {
-	free_nptr(2, msh.envp);
-	free_cmds(msh.cmds, msh.n_cmds);
-	ft_lstclear(&msh.declare, free);
+	if (new_fd < 0)
+		return ;
+	dup2(new_fd, old_fd);
+	close(new_fd);
 }

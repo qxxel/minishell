@@ -6,34 +6,11 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 14:17:48 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 15:59:33 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/09 17:50:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-static void	unset_declare(char *id, t_list **declare)
-{
-	t_list	*element;
-
-	if (!*declare)
-		return ;
-	if (!ft_strcmp(id, (*declare)->content))
-	{
-		ft_lstshift(declare, free);
-		return ;
-	}
-	element = *declare;
-	while (element)
-	{
-		if (!ft_strcmp(id, element->content))
-		{
-			ft_lstshift(&element, free);
-			return ;
-		}
-		element = element->next;
-	}
-}
 
 static bool	unset_envp(char *id, char ***envp)
 {

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:50:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/28 13:03:02 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:43:50 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,38 +46,35 @@ static bool	cd_switch(char **argv, char **envp, char **path)
 	return (false);
 }
 
-static bool	set_pwd(char *old_pwd, char *pwd, char ***envp)
+static bool	update_env(char *path, t_msh *msh)
 {
-	bool	status;
+	char	*str;
 
-	status = !pwd;
-	if (status)
-		perror("getcwd");
-	status = status || set_env_var_id("PWD", pwd, envp)
-		|| set_env_var_id("OLDPWD", old_pwd, envp);
-	free(pwd);
-	free(old_pwd);
-	return (status);
+	str = get_env_var("PWD", 3, msh->envp);
+	if (!str)
+		str = msh->pwd;
+	if (str && set_env_var_id("OLDPWD", str, msh))
+		return (true);
+	free(msh->pwd);
+	msh->pwd = getcwd(NULL, 0);
+	if (!msh->pwd)
+	{
+		ft_dprintf(STDERR_FILENO, CD_PARENT_ERROR, strerror(errno));
+		msh->pwd = join_path(str, path);
+	}
+	return (!msh->pwd || set_env_var_id("PWD", msh->pwd, msh));
 }
 
 int	ft_cd(char **argv, t_msh *msh)
 {
-	char	*old_pwd;
 	char	*path;
 
 	if (cd_switch(argv, msh->envp, &path))
 		return (EXIT_FAILURE);
-	old_pwd = getcwd(NULL, 0);
-	if (!old_pwd)
-	{
-		perror("getcwd");
-		return (EXIT_FAILURE);
-	}
 	if (chdir(path))
 	{
-		free(old_pwd);
 		ft_dprintf(STDERR_FILENO, CD_ERROR, path, strerror(errno));
 		return (EXIT_FAILURE);
 	}
-	return (set_pwd(old_pwd, getcwd(NULL, 0), &msh->envp));
+	return (update_env(path, msh));
 }

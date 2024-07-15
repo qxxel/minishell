@@ -1,46 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_types.h                                        :+:      :+:    :+:   */
+/*   join_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/11 12:14:42 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/09 15:55:48 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/09 16:14:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_TYPES_H
-# define MSH_TYPES_H
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-typedef struct s_redirect
+char	*join_path(char *path1, char *path2)
 {
-	bool	expand;
-	bool	option;
-	bool	out;
 	char	*path;
-}	t_redirect;
+	size_t	size;
 
-typedef struct s_cmd
-{
-	char		**argv;
-	size_t		n_redirects;
-	t_redirect	*redirects;
-	pid_t		pid;
-}	t_cmd;
-
-typedef struct s_msh
-{
-	char	**envp;
-	char	**paths;
-	char	*pwd;
-	int		fd[2];
-	int		status;
-	size_t	n_cmds;
-	t_cmd	*cmds;
-	t_list	*declare;
-}	t_msh;
-
-#endif
+	size = ft_strlen(path1) + ft_strlen(path2) + 2;
+	path = malloc(sizeof(char) * size);
+	if (!path)
+	{
+		perror("malloc");
+		return (NULL);
+	}
+	ft_strlcpy(path, path1, size);
+	ft_strlcat(path, "/", size);
+	ft_strlcat(path, path2, size);
+	return (path);
+}

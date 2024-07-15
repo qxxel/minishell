@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   destroy_msh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 16:39:59 by deydoux          ###   ########.fr       */
+/*   Created: 2024/06/20 16:26:49 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/12 10:56:24 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+static void	close_msh_fd(int fd[2])
 {
-	bool	status;
-	char	*str;
-	t_msh	msh;
+	safe_close(&fd[0]);
+	safe_close(&fd[1]);
+}
 
-	status = init_msh(envp, &msh);
-	while (!status)
-	{
-		str = readline("$ ");
-		add_history(str);
-		parse_cmds(str, &msh);
-		status = exec_cmds(&msh);
-		free_cmds(msh.cmds, msh.n_cmds);
-	}
-	destroy_msh(msh);
-	return (status);
-	(void)argc;
-	(void)argv;
+static void	free_msh(t_msh msh)
+{
+	clear_history();
+	free_nptr(2, msh.envp);
+	free_nptr(2, msh.paths);
+	free(msh.pwd);
+	ft_lstclear(&msh.declare, free);
+}
+
+void	destroy_msh(t_msh msh)
+{
+	close_msh_fd(msh.fd);
+	free_msh(msh);
 }

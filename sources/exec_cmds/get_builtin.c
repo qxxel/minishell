@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   get_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 16:39:59 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/08 18:29:04 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/08 18:38:31 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec_cmds.h"
 
-int	main(int argc, char **argv, char **envp)
+t_builtin	get_builtin(char *name)
 {
-	bool	status;
-	char	*str;
-	t_msh	msh;
+	const char		*names[] = {"cd", "echo", "env", "exit", "export", "pwd",
+		"unset", NULL};
+	const t_builtin	builtins[] = {ft_cd, ft_echo, ft_env, ft_exit, ft_export,
+		ft_pwd, ft_unset};
+	size_t			i;
 
-	status = init_msh(envp, &msh);
-	while (!status)
+	if (!name)
+		return (NULL);
+	i = 0;
+	while (names[i])
 	{
-		str = readline("$ ");
-		add_history(str);
-		parse_cmds(str, &msh);
-		status = exec_cmds(&msh);
-		free_cmds(msh.cmds, msh.n_cmds);
+		if (!ft_strcmp(name, names[i]))
+			return (builtins[i]);
+		else
+			i++;
 	}
-	destroy_msh(msh);
-	return (status);
-	(void)argc;
-	(void)argv;
+	return (NULL);
 }

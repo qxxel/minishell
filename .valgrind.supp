@@ -1,4 +1,11 @@
 {
+	System binaries
+	Memcheck:Leak
+	...
+	obj:/usr/bin/*
+}
+
+{
 	readline
 	Memcheck:Leak
 	...
