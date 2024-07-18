@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:00:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/26 15:28:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/18 18:11:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ static bool	init_buffer(char **argv, bool newline, size_t size, char **buffer)
 
 int	ft_echo(char **argv, t_msh *msh)
 {
+	bool	status;
 	char	*buffer;
 
 	if (init_buffer(&argv[1], true, 0, &buffer))
 		return (EXIT_FAILURE);
-	ft_putstr_fd(buffer, STDOUT_FILENO);
+	status = write(STDOUT_FILENO, buffer, ft_strlen(buffer)) < 0;
+	if (status)
+		write_error("echo");
 	free(buffer);
-	return (EXIT_SUCCESS);
+	return (status);
 	(void)msh;
 }

@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 18:09:38 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/18 18:03:37 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	print_envp(char **envp)
+static bool	print_envp(char **envp)
 {
 	size_t	i;
 	size_t	id_len;
@@ -24,19 +24,25 @@ static void	print_envp(char **envp)
 		while (envp[i][id_len] && envp[i][id_len] != '=')
 			id_len++;
 		envp[i][id_len] = 0;
-		printf(EXPORT_PREFIX "=\"%s\"\n", envp[i], &envp[i][id_len + 1]);
+		if (printf(EXPORT_PREFIX "=\"%s\"\n", envp[i], &envp[i][id_len + 1])
+			< 0)
+			return (write_error("export"));
 		envp[i++][id_len] = '=';
 	}
+	return (false);
 }
 
-static void	print_export(t_msh msh)
+static bool	print_export(t_msh msh)
 {
-	print_envp(msh.envp);
+	if (print_envp(msh.envp))
+		return (true);
 	while (msh.declare)
 	{
-		printf(EXPORT_PREFIX "\n", (char *)msh.declare->content);
+		if (printf(EXPORT_PREFIX "\n", (char *)msh.declare->content) < 0)
+			return (write_error("export"));
 		msh.declare = msh.declare->next;
 	}
+	return (false);
 }
 
 static bool	set_var(char *var, size_t id_len, t_msh *msh)
@@ -93,10 +99,7 @@ int	ft_export(char **argv, t_msh *msh)
 	size_t	i;
 
 	if (!argv[0] || !argv[1])
-	{
-		print_export(*msh);
-		return (EXIT_SUCCESS);
-	}
+		return (print_export(*msh));
 	i = 1;
 	status = false;
 	while (argv[i])

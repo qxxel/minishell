@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:50:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/10 14:43:50 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/18 18:10:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static bool	cd_switch(char **argv, char **envp, char **path)
 	{
 		if (cd_var("OLDPWD", envp, path))
 			return (true);
-		printf("%s\n", *path);
+		if (printf("%s\n", *path) < 0)
+			return (write_error("cd"));
 	}
 	else
 		*path = argv[1];
@@ -67,14 +68,16 @@ static bool	update_env(char *path, t_msh *msh)
 
 int	ft_cd(char **argv, t_msh *msh)
 {
+	bool	status;
 	char	*path;
 
-	if (cd_switch(argv, msh->envp, &path))
+	status = cd_switch(argv, msh->envp, &path);
+	if (!path)
 		return (EXIT_FAILURE);
 	if (chdir(path))
 	{
 		ft_dprintf(STDERR_FILENO, CD_ERROR, path, strerror(errno));
 		return (EXIT_FAILURE);
 	}
-	return (update_env(path, msh));
+	return (update_env(path, msh) || status);
 }

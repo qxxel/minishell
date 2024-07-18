@@ -7,6 +7,7 @@ SOURCES				=	builtins/ft_cd.c			\
 						builtins/ft_export.c		\
 						builtins/ft_pwd.c			\
 						builtins/ft_unset.c			\
+						builtins/write_error.c		\
 						destroy_msh.c				\
 						exec_cmds/exec_bin.c		\
 						exec_cmds/exec_cmd.c		\

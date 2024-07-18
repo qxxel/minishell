@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   write_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 07:09:17 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/18 18:11:19 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/18 17:58:43 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/18 17:59:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_env(char **argv, t_msh *msh)
+bool	write_error(char *program)
 {
-	bool	status;
-	size_t	i;
-	size_t	len;
-
-	status = false;
-	i = 0;
-	while (msh->envp[i] && !status)
-	{
-		len = ft_strlen(msh->envp[i]);
-		msh->envp[i][len] = '\n';
-		if (write(STDOUT_FILENO, msh->envp[i], len + 1))
-			status = write_error("env");
-		msh->envp[i][len] = 0;
-		i++;
-	}
-	return (status);
-	(void)argv;
+	ft_dprintf(STDERR_FILENO, WRITE_ERROR, program, strerror(errno));
+	return (true);
 }

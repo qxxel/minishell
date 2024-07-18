@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:59:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 21:48:37 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/18 18:00:08 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ cannot access parent directories: %s\n"
 # define EXIT_ARGS_ERROR	"minishell: exit: too many arguments\n"
 # define EXPORT_ID_ERROR	"minishell: export: `%s': not a valid identifier\n"
 # define EXPORT_PREFIX		"declare -x %s"
+# define WRITE_ERROR		"minishell: %s: write error: %s\n"
+
+bool	write_error(char *program);
 
 #endif
