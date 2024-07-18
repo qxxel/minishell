@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:55:48 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/09 16:14:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:11:16 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*join_path(char *path1, char *path2)
 	size_t	size;
 
 	size = ft_strlen(path1) + ft_strlen(path2) + 2;
-	path = malloc(sizeof(char) * size);
+	path = malloc(size * sizeof(*path));
 	if (!path)
 	{
 		perror("malloc");
