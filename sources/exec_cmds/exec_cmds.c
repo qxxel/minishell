@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/19 16:45:20 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:05:41 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	parent_builtin(t_cmd cmd, t_msh *msh)
 	builtin = get_builtin(cmd.argv[0]);
 	if (!builtin)
 		return (true);
-	init_redirects(cmd, msh->envp);
+	init_redirects(cmd, *msh);
 	msh->status = builtin(cmd.argv, msh);
 	dup2(msh->fd[0], STDIN_FILENO);
 	dup2(msh->fd[1], STDOUT_FILENO);

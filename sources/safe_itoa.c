@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cmds.c                                       :+:      :+:    :+:   */
+/*   safe_itoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:38:50 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 18:06:50 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/19 18:11:43 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/19 18:12:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmds.h"
+#include "minishell.h"
 
-bool	parse_cmds(char *str, t_msh *msh)
+void	safe_itoa(int n, char *str)
 {
-	bool	status;
-	char	**strs;
+	int		tmp_n;
+	size_t	len;
 
-	strs = NULL;
-	status = sign_expansion(str) || expand_env(&str, *msh)
-		|| expand_wildcards(&str) || msh_split(str, &strs);
-	free(str);
-	status = status || expand_quotes(strs, *msh) || join_strs(strs)
-		|| check_syntax(strs) || init_cmds(strs, msh);
-	free_nptr(2, strs);
-	return (status);
+	tmp_n = n;
+	len = n <= 0;
+	while (tmp_n)
+	{
+		tmp_n /= 10;
+		len++;
+	}
+	str[len--] = 0;
+	if (n < 0)
+		str[0] = '-';
+	else
+		str[0] = '0';
+	while (n)
+	{
+		str[len--] = ft_abs(n % 10) + '0';
+		n /= 10;
+	}
 }

@@ -33,6 +33,7 @@ SOURCES				=	builtins/ft_cd.c				\
 						parse_cmds/sign_expansion.c		\
 						parse_cmds/unsign_str.c			\
 						safe_close.c					\
+						safe_itoa.c						\
 						set_env_var_id.c				\
 						set_env_var.c					\
 						shift_strs.c					\

@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/12 15:02:57 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:05:08 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
 
-static void	heredoc_read(t_redirect redirect, char **envp,
+static void	heredoc_read(t_redirect redirect, t_msh msh,
 	t_heredoc_context *context)
 {
 	while (true)
@@ -20,7 +20,7 @@ static void	heredoc_read(t_redirect redirect, char **envp,
 		context->str = readline("> ");
 		if (!context->str || !ft_strcmp(redirect.path, context->str))
 			return ;
-		if (redirect.expand && expand_env(&context->str, envp))
+		if (redirect.expand && expand_env(&context->str, msh))
 		{
 			safe_close(&context->pipe[0]);
 			return ;
@@ -31,7 +31,7 @@ static void	heredoc_read(t_redirect redirect, char **envp,
 	}
 }
 
-static int	heredoc(t_redirect redirect, char **envp)
+static int	heredoc(t_redirect redirect, t_msh msh)
 {
 	t_heredoc_context	context;
 
@@ -41,7 +41,7 @@ static int	heredoc(t_redirect redirect, char **envp)
 		return (-1);
 	}
 	context.line = 1;
-	heredoc_read(redirect, envp, &context);
+	heredoc_read(redirect, msh, &context);
 	free(context.str);
 	if (!context.str)
 		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, context.line,
@@ -50,7 +50,7 @@ static int	heredoc(t_redirect redirect, char **envp)
 	return (context.pipe[0]);
 }
 
-static int	open_redirect(t_redirect redirect, char **envp)
+static int	open_redirect(t_redirect redirect, t_msh msh)
 {
 	int				fd;
 	t_redirect_flag	flag;
@@ -65,7 +65,7 @@ static int	open_redirect(t_redirect redirect, char **envp)
 	else
 	{
 		if (redirect.option)
-			return (heredoc(redirect, envp));
+			return (heredoc(redirect, msh));
 		else
 			flag = redirect_in_flag;
 	}
@@ -75,14 +75,14 @@ static int	open_redirect(t_redirect redirect, char **envp)
 	return (fd);
 }
 
-void	init_redirects(t_cmd cmd, char **envp)
+void	init_redirects(t_cmd cmd, t_msh msh)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < cmd.n_redirects)
 	{
-		safe_dup2(open_redirect(cmd.redirects[i], envp), cmd.redirects[i].out);
+		safe_dup2(open_redirect(cmd.redirects[i], msh), cmd.redirects[i].out);
 		i++;
 	}
 }
