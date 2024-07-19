@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/11 18:32:57 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 16:30:29 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 
 static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 {
-	cmd->pid = fork();
-	if (cmd->pid)
+	msh->pid = fork();
+	if (msh->pid)
 	{
-		if (cmd->pid < 0)
+		if (msh->pid < 0)
 		{
 			perror("fork");
 			return (true);
