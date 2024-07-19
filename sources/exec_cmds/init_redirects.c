@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 18:05:08 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:29:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,19 @@ static int	open_redirect(t_redirect redirect, t_msh msh)
 	return (fd);
 }
 
-void	init_redirects(t_cmd cmd, t_msh msh)
+bool	init_redirects(t_cmd cmd, t_msh msh)
 {
+	int		fd;
 	size_t	i;
 
 	i = 0;
 	while (i < cmd.n_redirects)
 	{
-		safe_dup2(open_redirect(cmd.redirects[i], msh), cmd.redirects[i].out);
+		fd = open_redirect(cmd.redirects[i], msh);
+		if (fd < 0)
+			return (true);
+		safe_dup2(fd, cmd.redirects[i].out);
 		i++;
 	}
+	return (false);
 }
