@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/18 18:03:37 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 19:08:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ static bool	export_var(char *var, t_msh *msh)
 	id_len = 0;
 	while (ft_isalnum(var[id_len]) || var[id_len] == '_')
 		id_len++;
+	if (!id_len)
+	{
+		ft_dprintf(STDERR_FILENO, EXPORT_ID_ERROR, "=");
+		return (true);
+	}
 	if (var[id_len] && var[id_len] != '=')
 	{
 		ft_dprintf(STDERR_FILENO, EXPORT_ID_ERROR, var);
