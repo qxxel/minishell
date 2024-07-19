@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/15 19:03:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 17:21:08 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	main(int argc, char **argv, char **envp)
 		parse_cmds(str, &msh);
 		status = exec_cmds(&msh);
 		free_cmds(msh.cmds, msh.n_cmds);
+		msh.cmds = NULL;
+		msh.n_cmds = 0;
 	}
 	destroy_msh(msh);
 	return (status);
