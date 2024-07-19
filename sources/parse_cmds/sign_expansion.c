@@ -6,11 +6,34 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/08 13:54:52 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 16:26:44 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cmds.h"
+
+static bool	sign_backslash(char *str)
+{
+	size_t	i;
+	size_t	shift;
+
+	i = 0;
+	shift = 0;
+	while (str[i + shift])
+	{
+		if (str[i + shift] == '\\')
+		{
+			if (!str[i + ++shift])
+				break ;
+			str[i] = str[i + shift] * -1;
+		}
+		else
+			str[i] = str[i + shift];
+		i++;
+	}
+	str[i] = 0;
+	return (false);
+}
 
 static bool	sign_quotes(char *str)
 {
@@ -67,5 +90,5 @@ static bool	sign_delimiter(char *str)
 
 bool	sign_expansion(char *str)
 {
-	return (sign_quotes(str) || sign_delimiter(str));
+	return (sign_backslash(str) || sign_quotes(str) || sign_delimiter(str));
 }
