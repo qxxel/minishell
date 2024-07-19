@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:18:31 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 18:06:02 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 20:09:58 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ bool	expand_quotes(char **strs, t_msh msh)
 		{
 			even_quotes = !even_quotes;
 			shift_strs(&strs[i], true);
+			if (!strs[i])
+				break ;
 			unsign_str(strs[i]);
 			if (expand_env(&strs[i], msh))
 				return (true);
