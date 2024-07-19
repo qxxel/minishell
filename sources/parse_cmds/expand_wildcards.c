@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:29:03 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/18 16:21:13 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/19 13:18:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 static bool	create_expand(char **str, size_t start, char *files, size_t end)
 {
 	char	*expand;
-	size_t	size;
 
-	size = start + ft_strlen(files) + ft_strlen(&(*str)[end]) + 1;
-	expand = malloc(size * sizeof(*expand));
+	expand = malloc((start + ft_strlen(files) + ft_strlen(&(*str)[end]) + 1)
+			* sizeof(*expand));
 	if (!expand)
 	{
 		perror("malloc");
@@ -26,8 +25,8 @@ static bool	create_expand(char **str, size_t start, char *files, size_t end)
 		return (true);
 	}
 	ft_strlcpy(expand, *str, start + 1);
-	ft_strlcat(expand, files, size);
-	ft_strlcat(expand, &(*str)[end], size);
+	ft_strlcat(expand, files, -1);
+	ft_strlcat(expand, &(*str)[end], -1);
 	free(files);
 	free(*str);
 	*str = expand;
