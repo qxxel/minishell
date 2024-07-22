@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:33:52 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/22 19:04:19 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:26:45 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EXPECTED_STR_ERROR		"minishell: syntax error near unexpected token \
 `%s'\n"
 # define QUOTES					"\"'"
+# define PARSE_CMDS_ERROR_CODE	2
 # define SEPARATORS				" \"'<|>"
 # define UNEXPECTED_EOF_ERROR	"minishell: unexpected EOF while looking for \
 matching `%c'\nminishell: syntax error: unexpected end of file\n"
