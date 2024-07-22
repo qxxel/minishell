@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/19 18:17:50 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:07:41 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static bool	parent_builtin(t_cmd cmd, t_msh *msh)
 	builtin = get_builtin(cmd.argv[0]);
 	if (!builtin)
 		return (true);
-	if (init_redirects(cmd, *msh))
-		msh->status = 1;
+	if (init_redirects(cmd, msh->envp))
+		g_status = 1;
 	else
-		msh->status = builtin(cmd.argv, msh);
+		g_status = builtin(cmd.argv, msh);
 	dup2(msh->fd[0], STDIN_FILENO);
 	dup2(msh->fd[1], STDOUT_FILENO);
 	return (false);
@@ -74,11 +74,11 @@ bool	exec_cmds(t_msh *msh)
 		i++;
 	}
 	safe_close(&fd.in);
-	msh->status = 1;
+	g_status = 1;
 	if (status)
 		return (true);
-	waitpid(msh->pid, &msh->status, 0);
-	msh->status = WEXITSTATUS(msh->status);
+	waitpid(msh->pid, &g_status, 0);
+	g_status = WEXITSTATUS(g_status);
 	while (wait(NULL) != -1)
 		;
 	return (false);

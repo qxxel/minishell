@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:16:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 18:12:02 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:00:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static bool	init_expand(size_t size, char **expand)
 	return (false);
 }
 
-static size_t	expand_size(char *str, size_t *id_len, char **value, t_msh msh)
+static size_t	expand_size(char *str, size_t *id_len, char **value,
+	char **envp)
 {
 	*id_len = 0;
 	if (str[0] != '$')
@@ -38,9 +39,9 @@ static size_t	expand_size(char *str, size_t *id_len, char **value, t_msh msh)
 	if (!*id_len)
 		return (1);
 	if (str[1] == '?')
-		safe_itoa(msh.status, *value);
+		safe_itoa(g_status, *value);
 	else
-		*value = get_env_var(str + 1, *id_len, msh.envp);
+		*value = get_env_var(str + 1, *id_len, envp);
 	if (!*value)
 		return (0);
 	return (ft_strlen(*value));
@@ -53,7 +54,7 @@ static char	sign_expand(char c)
 	return (c);
 }
 
-static bool	create_expand(char *str, size_t size, t_msh msh, char **expand)
+static bool	create_expand(char *str, size_t size, char **envp, char **expand)
 {
 	char	*value;
 	char	status[INT_TO_STR_MAX_SIZE];
@@ -63,8 +64,8 @@ static bool	create_expand(char *str, size_t size, t_msh msh, char **expand)
 	if (!*str)
 		return (init_expand(size, expand));
 	value = status;
-	value_len = expand_size(str, &id_len, &value, msh);
-	if (create_expand(&str[id_len + 1], size + value_len, msh, expand))
+	value_len = expand_size(str, &id_len, &value, envp);
+	if (create_expand(&str[id_len + 1], size + value_len, envp, expand))
 		return (true);
 	if (str[0] == '$')
 	{
@@ -79,11 +80,11 @@ static bool	create_expand(char *str, size_t size, t_msh msh, char **expand)
 	return (false);
 }
 
-bool	expand_env(char **str, t_msh msh)
+bool	expand_env(char **str, char **envp)
 {
 	char	*expand;
 
-	if (create_expand(*str, 0, msh, &expand))
+	if (create_expand(*str, 0, envp, &expand))
 		return (true);
 	free(*str);
 	*str = expand;

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 18:25:59 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:02:57 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 		safe_dup2(fd.pipe[1], STDOUT_FILENO);
 	}
 	safe_dup2(fd.in, STDIN_FILENO);
-	if (!init_redirects(*cmd, *msh))
+	if (!init_redirects(*cmd, msh->envp))
 	{
 		exec_builtin(cmd, msh);
 		exec_bin(cmd, msh);
