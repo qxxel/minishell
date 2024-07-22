@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:03:04 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 16:26:44 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:01:27 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,19 @@ static bool	sign_delimiter(char *str)
 	return (false);
 }
 
+static bool	ignore_comment(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] && (str[i] != '#' || (i && str[i - 1] != ' ')))
+		i++;
+	str[i] = 0;
+	return (false);
+}
+
 bool	sign_expansion(char *str)
 {
-	return (sign_backslash(str) || sign_quotes(str) || sign_delimiter(str));
+	return (sign_backslash(str) || sign_quotes(str) || sign_delimiter(str)
+		|| ignore_comment(str));
 }
