@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:00:42 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/18 18:11:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:44:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ static bool	create_buffer(bool newline, size_t size, char **buffer)
 	return (false);
 }
 
+static bool	is_option(char *str)
+{
+	size_t	i;
+
+	i = 2;
+	if (str[0] != '-' || str[1] != 'n')
+		return (false);
+	while (str[i] == 'n')
+		i++;
+	return (!str[i]);
+}
+
 static bool	init_buffer(char **argv, bool newline, size_t size, char **buffer)
 {
 	bool	space;
@@ -35,7 +47,7 @@ static bool	init_buffer(char **argv, bool newline, size_t size, char **buffer)
 		return (create_buffer(newline, size, buffer));
 	space = false;
 	len = ft_strlen(argv[0]);
-	if (len == 2 && argv[0][0] == '-' && argv[0][1] == 'n')
+	if (is_option(argv[0]))
 	{
 		newline = 0;
 		len = 0;
