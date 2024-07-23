@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/23 17:47:42 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:57:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 	sigemptyset(&act.sa_mask);
 	act.sa_handler = &handle_sigint;
 	sigaction(SIGINT, &act, NULL);
+	act.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &act, NULL);
 	status = init_msh(envp, &msh);
 	while (!status)
 	{
