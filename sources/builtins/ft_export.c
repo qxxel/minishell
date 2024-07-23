@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 07:25:37 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/19 19:08:55 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:05:15 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static bool	print_envp(char **envp)
 {
+	bool	status;
 	size_t	i;
 	size_t	id_len;
 
+	status = false;
 	i = 0;
 	while (envp[i])
 	{
@@ -24,10 +26,11 @@ static bool	print_envp(char **envp)
 		while (envp[i][id_len] && envp[i][id_len] != '=')
 			id_len++;
 		envp[i][id_len] = 0;
-		if (printf(EXPORT_PREFIX "=\"%s\"\n", envp[i], &envp[i][id_len + 1])
-			< 0)
-			return (write_error("export"));
+		status = printf(EXPORT_PREFIX "=\"%s\"\n", envp[i],
+				&envp[i][id_len + 1]) < 0;
 		envp[i++][id_len] = '=';
+		if (status)
+			return (write_error("export"));
 	}
 	return (false);
 }
