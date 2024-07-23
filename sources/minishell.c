@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/23 17:10:00 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:47:42 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,29 @@
 
 int	g_status = 0;
 
+void	handle_sigint(int sig)
+{
+	g_status = 130;
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	while (wait(NULL) != -1)
+		;
+	(void)sig;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	bool	status;
-	char	*str;
-	t_msh	msh;
+	bool				status;
+	char				*str;
+	struct sigaction	act;
+	t_msh				msh;
 
+	bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_handler = &handle_sigint;
+	sigaction(SIGINT, &act, NULL);
 	status = init_msh(envp, &msh);
 	while (!status)
 	{
