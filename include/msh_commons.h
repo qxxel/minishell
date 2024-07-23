@@ -6,13 +6,14 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/22 19:06:22 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:00:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_COMMONS_H
 # define MSH_COMMONS_H
 
+# define _GNU_SOURCE
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
