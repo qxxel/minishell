@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:57 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/24 15:49:15 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 
 static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 {
+	struct sigaction	act;
+
 	msh->pid = fork();
 	if (msh->pid)
 	{
@@ -44,8 +46,13 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 		safe_dup2(fd.pipe[1], STDOUT_FILENO);
 	}
 	safe_dup2(fd.in, STDIN_FILENO);
+	ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESETHAND;
+	sigaction(SIGINT, &act, NULL);
 	if (!init_redirects(*cmd, msh->envp))
 	{
+		sigaction(SIGQUIT, &act, NULL);
 		exec_builtin(cmd, msh);
 		exec_bin(cmd, msh);
 	}
