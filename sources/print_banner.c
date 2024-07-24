@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   print_banner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 12:05:33 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/24 12:04:02 by deydoux           #+#    #+#             */
+/*   Updated: 2024/07/24 12:05:09 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "banner.h"
+#include "minishell.h"
 
-# include "msh_commons.h"
-
-# define EXPAND_SEPARATORS		"<|>"
-# define INT_TO_STR_MAX_SIZE	12
-
-bool	exec_cmds(t_msh *msh);
-bool	init_msh(char **envp, t_msh *msh);
-bool	parse_cmds(char *str, t_msh *msh);
-void	print_banner(void);
-void	safe_itoa(int n, char *str);
-
-#endif
+void	print_banner(void)
+{
+	if (SHOW_BANNER)
+		write(STDERR_FILENO, BANNER, BANNER_SIZE);
+}
