@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/23 17:15:29 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:06:05 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	exec_cmds(t_msh *msh)
 	g_status = 1;
 	if (status)
 		return (true);
-	if (waitpid(msh->pid, &g_status, 0) <= 0)
+	if (waitpid(msh->pid, &g_status, 0) <= 0 && WIFEXITED(g_status))
 		g_status = WEXITSTATUS(g_status);
 	while (wait(NULL) != -1)
 		;
