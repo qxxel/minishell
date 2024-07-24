@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   set_sig_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 17:31:13 by agerbaud         ###   ########.fr       */
+/*   Created: 2024/07/24 17:09:21 by agerbaud          #+#    #+#             */
+/*   Updated: 2024/07/24 18:35:17 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "msh_commons.h"
+static void	handle_sigint(int sig)
+{
+	g_status = 130;
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	while (wait(NULL) != -1)
+		;
+	(void)sig;
+}
 
-# define EXPAND_SEPARATORS		"<|>"
-# define INT_TO_STR_MAX_SIZE	12
+void	set_sig_exec(void)
+{
+    struct sigaction    act;
 
-bool	exec_cmds(t_msh *msh);
-bool	init_msh(char **envp, t_msh *msh);
-bool	parse_cmds(char *str, t_msh *msh);
-void	print_banner(void);
-void	safe_itoa(int n, char *str);
-
-#endif
+    ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_handler = &handle_sigint;
+	sigaction(SIGINT, &act, NULL);
+}

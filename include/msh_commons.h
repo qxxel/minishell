@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_commons.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/23 16:00:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:20:52 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ char	*join_path(char *path1, char *path2);
 void	safe_close(int *fd);
 bool	set_env_var(char *var, size_t id_len, t_msh *msh);
 bool	set_env_var_id(char *id, char *value, t_msh *msh);
+void	set_sig_exec(void);
+void	set_sig_exec_child(void);
+void	set_sig_prompt(void);
+void	set_sig_redirects(void);
 void	shift_strs(char **strs, bool free_str);
 void	unset_declare(char *id, t_list **declare);
 

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   set_sig_exec_child.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 17:31:13 by agerbaud         ###   ########.fr       */
+/*   Created: 2024/07/24 18:18:08 by agerbaud          #+#    #+#             */
+/*   Updated: 2024/07/24 18:20:36 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "msh_commons.h"
+void	set_sig_exec_child(void)
+{
+	struct sigaction	act;
 
-# define EXPAND_SEPARATORS		"<|>"
-# define INT_TO_STR_MAX_SIZE	12
-
-bool	exec_cmds(t_msh *msh);
-bool	init_msh(char **envp, t_msh *msh);
-bool	parse_cmds(char *str, t_msh *msh);
-void	print_banner(void);
-void	safe_itoa(int n, char *str);
-
-#endif
+	ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESETHAND;
+	sigaction(SIGQUIT, &act, NULL);
+}
