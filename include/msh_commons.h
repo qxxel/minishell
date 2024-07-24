@@ -6,7 +6,7 @@
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 18:20:52 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:44:00 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ int		ft_unset(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
 bool	init_envp(char **src, char ***envp);
 char	*join_path(char *path1, char *path2);
+void	reset_sig(int code);
 void	safe_close(int *fd);
 bool	set_env_var(char *var, size_t id_len, t_msh *msh);
 bool	set_env_var_id(char *id, char *value, t_msh *msh);
 void	set_sig_exec(void);
-void	set_sig_exec_child(void);
 void	set_sig_prompt(void);
-void	set_sig_redirects(void);
 void	shift_strs(char **strs, bool free_str);
 void	unset_declare(char *id, t_list **declare);
 

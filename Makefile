@@ -33,14 +33,13 @@ SOURCES				=	builtins/ft_cd.c				\
 						parse_cmds/sign_expansion.c		\
 						parse_cmds/unsign_str.c			\
 						print_banner.c					\
+						reset_sig.c						\
 						safe_close.c					\
 						safe_itoa.c						\
 						set_env_var_id.c				\
 						set_env_var.c					\
 						set_sig_exec.c					\
-						set_sig_exec_child.c			\
 						set_sig_prompt.c				\
-						set_sig_redirects.c				\
 						shift_strs.c					\
 						unset_declare.c
 

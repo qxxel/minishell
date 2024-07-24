@@ -6,7 +6,7 @@
 /*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 18:21:28 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:45:10 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 		safe_dup2(fd.pipe[1], STDOUT_FILENO);
 	}
 	safe_dup2(fd.in, STDIN_FILENO);
-	set_sig_redirects();
+	reset_sig(SIGINT);
 	if (!init_redirects(*cmd, msh->envp))
 	{
-		set_sig_exec_child();
+		reset_sig(SIGQUIT);
 		exec_builtin(cmd, msh);
 		exec_bin(cmd, msh);
 	}
