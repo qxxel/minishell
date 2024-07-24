@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 14:17:24 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/24 15:11:51 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ static char	*generate_prompt(t_msh msh)
 	else
 		path = get_env_var("PWD", 3, msh.envp);
 	if (!path)
-		path = ".";
-	prompt = ft_strjoin(path, "$ ");
-	return (prompt);
+	{
+		path = getcwd(NULL, 0);
+		if (!path)
+			return (ft_strdup(".$ "));
+		prompt = ft_strjoin(path, "$ ");
+		free(path);
+		return (prompt);
+	}
+	return (ft_strjoin(path, "$ "));
 }
 
 static char	*readline_prompt(t_msh msh)
@@ -36,7 +42,7 @@ static char	*readline_prompt(t_msh msh)
 
 	prompt = generate_prompt(msh);
 	if (!prompt)
-		return (readline("$ "));
+		return (readline(".$ "));
 	str = readline(prompt);
 	free(prompt);
 	return (str);
