@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 15:20:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:12:44 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ void	handle_sigint(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	while (wait(NULL) != -1)
+		;
+	(void)sig;
+}
+
+void	handle_sigint_exec(int sig)
+{
+	g_status = 130;
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	while (wait(NULL) != -1)
 		;
 	(void)sig;
@@ -76,7 +87,11 @@ int	main(int argc, char **argv, char **envp)
 	status = init_msh(envp, &msh);
 	while (!status)
 	{
+		act.sa_handler = &handle_sigint;
+		sigaction(SIGINT, &act, NULL);
 		str = readline_prompt(msh);
+		act.sa_handler = &handle_sigint_exec;
+		sigaction(SIGINT, &act, NULL);
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
