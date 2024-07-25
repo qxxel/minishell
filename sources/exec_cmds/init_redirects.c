@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_redirects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 17:57:29 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:30:24 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static int	heredoc(t_redirect redirect, char **envp)
 		return (-1);
 	}
 	context.line = 1;
+	reset_sig(SIGINT);
 	heredoc_read(redirect, envp, &context);
+	ignore_sig(SIGINT);
 	free(context.str);
 	if (!context.str)
 		ft_dprintf(STDERR_FILENO, DELIMITER_WARNING, context.line,
