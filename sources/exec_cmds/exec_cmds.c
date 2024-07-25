@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/25 18:17:30 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:39:15 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ static bool	test_wait_status(int status)
 		return (false);
 	sig = WTERMSIG(status);
 	if (sig == SIGINT)
-	{
-		g_status = SIGINT_CODE;
 		ft_putchar_fd('\n', STDERR_FILENO);
-	}
 	else if (sig == SIGQUIT)
-	{
-		g_status = SIGQUIT_CODE;
 		ft_putstr_fd(SIGQUIT_MESSAGE, STDERR_FILENO);
-	}
+	else if (sig == SIGSEGV)
+		ft_putstr_fd(SIGSEGV_MESSAGE, STDERR_FILENO);
+	g_status = SIG_BASE_STATUS + sig;
 	return (true);
 }
 

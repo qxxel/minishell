@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/25 18:17:18 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:39:40 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ delimited by end-of-file (wanted `%s')\n"
 # define FILE_ERROR				"minishell: %s: %s\n"
 # define PATH_IS_DIR			"minishell: %s: Is a directory\n"
 # define REDIRECT_OPEN_MODE		0666
-# define SIGQUIT_CODE			131
+# define SIG_BASE_STATUS		128
 # define SIGQUIT_MESSAGE		"Quit (core dumped)\n"
+# define SIGSEGV_MESSAGE		"Segmentation fault (core dumped)\n"
 
 typedef int	(*t_builtin)(char **, t_msh *);
 

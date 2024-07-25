@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 18:00:55 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:38:00 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 
 # include "libft.h"
 # include "msh_types.h"
-
-# define SIGINT_CODE	130
 
 extern int	g_status;
 
