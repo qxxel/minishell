@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 15:47:21 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:44:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	while (!status)
 	{
 		str = readline_prompt(msh);
-		set_sig_exec();
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);

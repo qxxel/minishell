@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:54:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 18:54:53 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:06:04 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,41 @@ static char	*generate_prompt(t_msh msh)
 	return (ft_strjoin(path, "$ "));
 }
 
+static void	handle_sigint(int sig)
+{
+	g_status = SIGINT_CODE;
+	rl_replace_line("", 0);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_on_new_line();
+	rl_redisplay();
+	(void)sig;
+}
+
+static void	set_sig(void)
+{
+	struct sigaction	act;
+
+	act.sa_flags = SA_RESTART;
+	act.sa_handler = &handle_sigint;
+	sigemptyset(&act.sa_mask);
+	sigaction(SIGINT, &act, NULL);
+}
+
 char	*readline_prompt(t_msh msh)
 {
 	char	*prompt;
+	char	*prompt_ptr;
 	char	*str;
 
 	prompt = generate_prompt(msh);
-	set_sig_prompt();
+	prompt_ptr = prompt;
 	if (!prompt)
-		return (readline(".$ "));
-	str = readline(prompt);
+		prompt_ptr = ".$ ";
+	while (wait(NULL) != -1)
+		;
+	set_sig();
+	str = readline(prompt_ptr);
+	ignore_sig(SIGINT);
 	free(prompt);
 	return (str);
 }

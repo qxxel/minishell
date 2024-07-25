@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/24 16:06:05 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:17:30 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,36 @@ static bool	update_paths(char *path_var, t_msh *msh)
 	return (false);
 }
 
+static bool	test_wait_status(int status)
+{
+	int	sig;
+
+	if (WIFEXITED(status))
+		return (false);
+	sig = WTERMSIG(status);
+	if (sig == SIGINT)
+	{
+		g_status = SIGINT_CODE;
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+	else if (sig == SIGQUIT)
+	{
+		g_status = SIGQUIT_CODE;
+		ft_putstr_fd(SIGQUIT_MESSAGE, STDERR_FILENO);
+	}
+	return (true);
+}
+
+static void	wait_cmds(pid_t pid)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	g_status = WEXITSTATUS(status);
+	while (pid != -1 && !test_wait_status(status))
+		pid = wait(&status);
+}
+
 bool	exec_cmds(t_msh *msh)
 {
 	bool		status;
@@ -77,9 +107,6 @@ bool	exec_cmds(t_msh *msh)
 	g_status = 1;
 	if (status)
 		return (true);
-	if (waitpid(msh->pid, &g_status, 0) <= 0 && WIFEXITED(g_status))
-		g_status = WEXITSTATUS(g_status);
-	while (wait(NULL) != -1)
-		;
+	wait_cmds(msh->pid);
 	return (false);
 }

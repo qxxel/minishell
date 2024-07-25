@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 18:45:10 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:09:49 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 	t_builtin	builtin;
 
 	builtin = get_builtin(cmd->argv[0]);
+	reset_sig(SIGINT);
+	reset_sig(SIGQUIT);
 	if (!builtin)
 		return ;
 	status = builtin(cmd->argv, msh);
@@ -44,10 +46,8 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 		safe_dup2(fd.pipe[1], STDOUT_FILENO);
 	}
 	safe_dup2(fd.in, STDIN_FILENO);
-	reset_sig(SIGINT);
 	if (!init_redirects(*cmd, msh->envp))
 	{
-		reset_sig(SIGQUIT);
 		exec_builtin(cmd, msh);
 		exec_bin(cmd, msh);
 	}

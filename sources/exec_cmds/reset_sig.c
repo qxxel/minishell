@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   reset_sig.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 18:01:11 by deydoux          ###   ########.fr       */
+/*   Created: 2024/07/24 17:09:57 by agerbaud          #+#    #+#             */
+/*   Updated: 2024/07/25 17:43:55 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "exec_cmds.h"
 
-# include "msh_commons.h"
+void	reset_sig(int sig)
+{
+	struct sigaction	act;
 
-# define EXPAND_SEPARATORS		"<|>"
-# define INT_TO_STR_MAX_SIZE	12
-
-bool	exec_cmds(t_msh *msh);
-bool	init_msh(char **envp, t_msh *msh);
-bool	parse_cmds(char *str, t_msh *msh);
-void	print_banner(void);
-char	*readline_prompt(t_msh msh);
-void	safe_itoa(int n, char *str);
-
-#endif
+	ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESETHAND;
+	sigaction(sig, &act, NULL);
+}
