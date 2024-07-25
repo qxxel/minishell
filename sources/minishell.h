@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:05:57 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 18:39:49 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:46:56 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ bool	exec_cmds(t_msh *msh);
 bool	init_msh(char **envp, t_msh *msh);
 bool	parse_cmds(char *str, t_msh *msh);
 void	print_banner(void);
+char	*readline_prompt(t_msh msh);
 void	safe_itoa(int n, char *str);
 
 #endif

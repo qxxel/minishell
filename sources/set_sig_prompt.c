@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sig_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:09:21 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/24 18:35:14 by agerbaud         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:48:43 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,36 @@
 
 static void	handle_sigint(int sig)
 {
-	g_status = 130;
-	ft_putchar_fd('\n', STDERR_FILENO);
+	g_status = SIGINT_CODE;
 	rl_replace_line("", 0);
+	ft_putchar_fd('\n', STDERR_FILENO);
 	rl_on_new_line();
 	rl_redisplay();
-	while (wait(NULL) != -1)
-		;
 	(void)sig;
 }
 
 static void	set_sigint(void)
 {
-	struct sigaction    act;
+	struct sigaction	act;
 
-    ft_bzero(&act, sizeof(act));
+	ft_bzero(&act, sizeof(act));
 	sigemptyset(&act.sa_mask);
 	act.sa_handler = &handle_sigint;
 	sigaction(SIGINT, &act, NULL);
 }
 
-static void set_sigquit(void)
+static void	set_sigquit(void)
 {
-    struct sigaction    act;
+	struct sigaction	act;
 
-    ft_bzero(&act, sizeof(act));
+	ft_bzero(&act, sizeof(act));
 	sigemptyset(&act.sa_mask);
-    act.sa_handler = SIG_IGN;
+	act.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &act, NULL);
 }
 
-
 void	set_sig_prompt(void)
 {
-    set_sigint();
-    set_sigquit();
+	set_sigint();
+	set_sigquit();
 }
