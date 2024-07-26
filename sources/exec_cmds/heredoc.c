@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:44:20 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 10:32:53 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 11:04:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	handle_sigint(int sig)
 {
-	g_status = true;
+	g_status = SIG_BASE_STATUS + sig;
+	ft_putchar_fd('\n', STDERR_FILENO);
 	close(STDIN_FILENO);
-	(void)sig;
 }
 
 static void	set_sig(void)
@@ -36,8 +36,7 @@ static void	heredoc_read(t_redirect redirect, char **envp,
 	while (true)
 	{
 		context->str = readline("> ");
-		if (g_status || !context->str
-			|| !ft_strcmp(redirect.path, context->str))
+		if (!context->str || !ft_strcmp(redirect.path, context->str))
 			return ;
 		if (redirect.expand && expand_env(&context->str, envp))
 		{

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 09:44:45 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 11:05:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ static int	open_redirect(t_redirect redirect, char **envp)
 	}
 	fd = open(redirect.path, flag, REDIRECT_OPEN_MODE);
 	if (fd < 0)
+	{
+		g_status = 1;
 		ft_dprintf(STDERR_FILENO, FILE_ERROR, redirect.path, strerror(errno));
+	}
 	return (fd);
 }
 
