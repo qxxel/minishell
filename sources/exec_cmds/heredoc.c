@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:44:20 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 11:04:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 16:06:10 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static void	handle_sigint(int sig)
 {
+	int	pipe_fd[2];
+
 	g_status = SIG_BASE_STATUS + sig;
-	ft_putchar_fd('\n', STDERR_FILENO);
-	close(STDIN_FILENO);
+	if (pipe(pipe_fd))
+	{
+		perror("\npipe");
+		return ;
+	}
+	ft_putchar_fd('\n', pipe_fd[1]);
+	close(pipe_fd[1]);
+	safe_dup2(pipe_fd[0], STDIN_FILENO);
 }
 
 static void	set_sig(void)
@@ -36,7 +44,8 @@ static void	heredoc_read(t_redirect redirect, char **envp,
 	while (true)
 	{
 		context->str = readline("> ");
-		if (!context->str || !ft_strcmp(redirect.path, context->str))
+		if (g_status || !context->str
+			|| !ft_strcmp(redirect.path, context->str))
 			return ;
 		if (redirect.expand && expand_env(&context->str, envp))
 		{

@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 09:47:46 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:43:38 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # include "libft.h"
 # include "msh_types.h"
+
+# define SIG_BASE_STATUS	128
 
 extern int	g_status;
 

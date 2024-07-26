@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:54:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 09:39:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 16:03:30 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ static char	*generate_prompt(t_msh msh)
 
 static void	handle_sigint(int sig)
 {
-	g_status = SIGINT_CODE;
+	g_status = SIG_BASE_STATUS + sig;
 	rl_replace_line("", 0);
 	ft_putchar_fd('\n', STDERR_FILENO);
 	rl_on_new_line();
 	rl_redisplay();
-	(void)sig;
 }
 
 static void	set_sig(void)
