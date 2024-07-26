@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/25 18:39:15 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 09:42:52 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ bool	exec_cmds(t_msh *msh)
 	size_t		i;
 	t_exec_fd	fd;
 
-	if (msh->n_cmds == 1 && !parent_builtin(msh->cmds[0], msh))
+	if (!msh->n_cmds
+		|| (msh->n_cmds == 1 && !parent_builtin(msh->cmds[0], msh)))
 		return (false);
 	fd.in = -1;
 	ft_memset(&fd, -1, sizeof(fd));
@@ -103,7 +104,9 @@ bool	exec_cmds(t_msh *msh)
 	safe_close(&fd.in);
 	g_status = 1;
 	if (status)
-		return (true);
-	wait_cmds(msh->pid);
-	return (false);
+		while (wait(NULL) != -1)
+			;
+	else
+		wait_cmds(msh->pid);
+	return (status);
 }

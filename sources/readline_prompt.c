@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:54:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 18:06:04 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 09:39:23 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ char	*readline_prompt(t_msh msh)
 	prompt_ptr = prompt;
 	if (!prompt)
 		prompt_ptr = ".$ ";
-	while (wait(NULL) != -1)
-		;
 	set_sig();
 	str = readline(prompt_ptr);
 	ignore_sig(SIGINT);
