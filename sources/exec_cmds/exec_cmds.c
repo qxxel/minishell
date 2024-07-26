@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/26 11:05:25 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 01:15:20 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,9 @@ bool	exec_cmds(t_msh *msh)
 	}
 	safe_close(&fd.in);
 	g_status = 1;
-	if (status)
-		while (wait(NULL) != -1)
-			;
-	else
+	if (!status)
 		wait_cmds(msh->pid);
+	while (wait(NULL) != -1)
+		;
 	return (status);
 }
