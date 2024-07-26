@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 10:40:07 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 16:07:42 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 	}
 	free_cmds(msh->cmds, msh->n_cmds);
 	destroy_msh(*msh);
-	exit(EXIT_FAILURE);
+	exit(g_status);
 }
 
 bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)
