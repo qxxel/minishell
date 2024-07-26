@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/26 09:51:36 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 10:39:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool		exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh);
 t_builtin	get_builtin(char *name);
 int			heredoc(t_redirect redirect, char **envp);
 bool		init_redirects(t_cmd cmd, char **envp);
-void		reset_sig(int sig);
 void		safe_dup2(int new_fd, int old_fd);
 
 #endif

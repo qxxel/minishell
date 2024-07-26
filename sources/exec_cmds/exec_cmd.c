@@ -6,11 +6,21 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:49 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 10:40:07 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
+
+static void	reset_sig(int sig)
+{
+	struct sigaction	act;
+
+	ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESETHAND;
+	sigaction(sig, &act, NULL);
+}
 
 static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 {

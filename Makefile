@@ -15,7 +15,6 @@ SOURCES				=	builtins/ft_cd.c				\
 						exec_cmds/get_builtin.c			\
 						exec_cmds/heredoc.c				\
 						exec_cmds/init_redirects.c		\
-						exec_cmds/reset_sig.c			\
 						exec_cmds/safe_dup2.c			\
 						expand_env.c					\
 						free_cmds.c						\
