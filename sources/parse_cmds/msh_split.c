@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:41:35 by deydoux           #+#    #+#             */
-/*   Updated: 2024/06/23 13:35:39 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 13:19:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static bool	segment_str(char *str, char **strs, size_t *start, size_t end)
 	if (!strs[i++])
 	{
 		perror("malloc");
-		free_nptr(2, strs);
 		return (true);
 	}
 	*start = end;
