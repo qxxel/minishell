@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:44:20 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 16:06:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 02:16:59 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	heredoc_read(t_redirect redirect, char **envp,
 	}
 }
 
-int	heredoc(t_redirect redirect, char **envp)
+int	heredoc(t_redirect redirect, t_msh msh)
 {
 	t_heredoc_context	context;
 
@@ -69,7 +69,8 @@ int	heredoc(t_redirect redirect, char **envp)
 	}
 	context.line = 1;
 	set_sig();
-	heredoc_read(redirect, envp, &context);
+	dup2(msh.fd[0], STDIN_FILENO);
+	heredoc_read(redirect, msh.envp, &context);
 	ignore_sig(SIGINT);
 	free(context.str);
 	if (g_status)

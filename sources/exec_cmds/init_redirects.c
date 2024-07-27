@@ -6,13 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:13:33 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 11:05:10 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 02:18:06 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
 
-static int	open_redirect(t_redirect redirect, char **envp)
+static int	open_redirect(t_redirect redirect, t_msh msh)
 {
 	int				fd;
 	t_redirect_flag	flag;
@@ -27,7 +27,7 @@ static int	open_redirect(t_redirect redirect, char **envp)
 	else
 	{
 		if (redirect.option)
-			return (heredoc(redirect, envp));
+			return (heredoc(redirect, msh));
 		else
 			flag = redirect_in_flag;
 	}
@@ -40,7 +40,7 @@ static int	open_redirect(t_redirect redirect, char **envp)
 	return (fd);
 }
 
-bool	init_redirects(t_cmd cmd, char **envp)
+bool	init_redirects(t_cmd cmd, t_msh msh)
 {
 	int		fd;
 	size_t	i;
@@ -48,7 +48,7 @@ bool	init_redirects(t_cmd cmd, char **envp)
 	i = 0;
 	while (i < cmd.n_redirects)
 	{
-		fd = open_redirect(cmd.redirects[i], envp);
+		fd = open_redirect(cmd.redirects[i], msh);
 		if (fd < 0)
 			return (true);
 		safe_dup2(fd, cmd.redirects[i].out);
