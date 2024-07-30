@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/23 16:00:23 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:43:38 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/ioctl.h>
 # include <sys/resource.h>
 # include <sys/stat.h>
 # include <sys/time.h>
@@ -33,6 +34,8 @@
 
 # include "libft.h"
 # include "msh_types.h"
+
+# define SIG_BASE_STATUS	128
 
 extern int	g_status;
 
@@ -47,6 +50,7 @@ int		ft_export(char **argv, t_msh *msh);
 int		ft_pwd(char **argv, t_msh *msh);
 int		ft_unset(char **argv, t_msh *msh);
 char	*get_env_var(char *id, size_t len, char **envp);
+void	ignore_sig(int sig);
 bool	init_envp(char **src, char ***envp);
 char	*join_path(char *path1, char *path2);
 void	safe_close(int *fd);

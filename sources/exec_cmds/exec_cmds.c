@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:39:13 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/23 17:15:29 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 02:17:32 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static bool	parent_builtin(t_cmd cmd, t_msh *msh)
 	builtin = get_builtin(cmd.argv[0]);
 	if (!builtin)
 		return (true);
-	if (init_redirects(cmd, msh->envp))
-		g_status = 1;
-	else
+	if (!init_redirects(cmd, *msh))
 		g_status = builtin(cmd.argv, msh);
 	dup2(msh->fd[0], STDIN_FILENO);
 	dup2(msh->fd[1], STDOUT_FILENO);
@@ -55,13 +53,41 @@ static bool	update_paths(char *path_var, t_msh *msh)
 	return (false);
 }
 
+static bool	test_wait_status(int status)
+{
+	int	sig;
+
+	if (WIFEXITED(status))
+		return (false);
+	sig = WTERMSIG(status);
+	if (sig == SIGINT)
+		ft_putchar_fd('\n', STDERR_FILENO);
+	else if (sig == SIGQUIT)
+		ft_putstr_fd(SIGQUIT_MESSAGE, STDERR_FILENO);
+	else if (sig == SIGSEGV)
+		ft_putstr_fd(SIGSEGV_MESSAGE, STDERR_FILENO);
+	g_status = SIG_BASE_STATUS + sig;
+	return (true);
+}
+
+static void	wait_cmds(pid_t pid)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	g_status = WEXITSTATUS(status);
+	while (pid != -1 && !test_wait_status(status))
+		pid = wait(&status);
+}
+
 bool	exec_cmds(t_msh *msh)
 {
 	bool		status;
 	size_t		i;
 	t_exec_fd	fd;
 
-	if (msh->n_cmds == 1 && !parent_builtin(msh->cmds[0], msh))
+	if (!msh->n_cmds
+		|| (msh->n_cmds == 1 && !parent_builtin(msh->cmds[0], msh)))
 		return (false);
 	fd.in = -1;
 	ft_memset(&fd, -1, sizeof(fd));
@@ -75,11 +101,9 @@ bool	exec_cmds(t_msh *msh)
 	}
 	safe_close(&fd.in);
 	g_status = 1;
-	if (status)
-		return (true);
-	if (waitpid(msh->pid, &g_status, 0) <= 0)
-		g_status = WEXITSTATUS(g_status);
+	if (!status)
+		wait_cmds(msh->pid);
 	while (wait(NULL) != -1)
 		;
-	return (false);
+	return (status);
 }

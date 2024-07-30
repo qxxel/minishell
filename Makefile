@@ -13,11 +13,13 @@ SOURCES				=	builtins/ft_cd.c				\
 						exec_cmds/exec_cmd.c			\
 						exec_cmds/exec_cmds.c			\
 						exec_cmds/get_builtin.c			\
+						exec_cmds/heredoc.c				\
 						exec_cmds/init_redirects.c		\
 						exec_cmds/safe_dup2.c			\
 						expand_env.c					\
 						free_cmds.c						\
 						get_env_var.c					\
+						ignore_sig.c					\
 						init_envp.c						\
 						init_msh.c						\
 						join_path.c						\
@@ -33,6 +35,7 @@ SOURCES				=	builtins/ft_cd.c				\
 						parse_cmds/sign_expansion.c		\
 						parse_cmds/unsign_str.c			\
 						print_banner.c					\
+						readline_prompt.c				\
 						safe_close.c					\
 						safe_itoa.c						\
 						set_env_var_id.c				\

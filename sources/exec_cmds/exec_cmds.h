@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:44:17 by agerbaud          #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:48 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 02:17:47 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ delimited by end-of-file (wanted `%s')\n"
 # define FILE_ERROR				"minishell: %s: %s\n"
 # define PATH_IS_DIR			"minishell: %s: Is a directory\n"
 # define REDIRECT_OPEN_MODE		0666
+# define SIGQUIT_MESSAGE		"Quit (core dumped)\n"
+# define SIGSEGV_MESSAGE		"Segmentation fault (core dumped)\n"
 
 typedef int	(*t_builtin)(char **, t_msh *);
 
@@ -56,7 +58,8 @@ typedef enum e_redirect_flag
 void		exec_bin(t_cmd *cmd, t_msh *msh);
 bool		exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh);
 t_builtin	get_builtin(char *name);
-bool		init_redirects(t_cmd cmd, char **envp);
+int			heredoc(t_redirect redirect, t_msh msh);
+bool		init_redirects(t_cmd cmd, t_msh msh);
 void		safe_dup2(int new_fd, int old_fd);
 
 #endif

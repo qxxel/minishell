@@ -6,47 +6,13 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 15:11:51 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:44:39 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_status = 0;
-
-static char	*generate_prompt(t_msh msh)
-{
-	char	*path;
-	char	*prompt;
-
-	if (msh.pwd)
-		path = msh.pwd;
-	else
-		path = get_env_var("PWD", 3, msh.envp);
-	if (!path)
-	{
-		path = getcwd(NULL, 0);
-		if (!path)
-			return (ft_strdup(".$ "));
-		prompt = ft_strjoin(path, "$ ");
-		free(path);
-		return (prompt);
-	}
-	return (ft_strjoin(path, "$ "));
-}
-
-static char	*readline_prompt(t_msh msh)
-{
-	char	*prompt;
-	char	*str;
-
-	prompt = generate_prompt(msh);
-	if (!prompt)
-		return (readline(".$ "));
-	str = readline(prompt);
-	free(prompt);
-	return (str);
-}
 
 int	main(int argc, char **argv, char **envp)
 {

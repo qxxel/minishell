@@ -6,11 +6,21 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:57 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/27 02:17:25 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmds.h"
+
+static void	reset_sig(int sig)
+{
+	struct sigaction	act;
+
+	ft_bzero(&act, sizeof(act));
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESETHAND;
+	sigaction(sig, &act, NULL);
+}
 
 static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 {
@@ -18,6 +28,8 @@ static void	exec_builtin(t_cmd *cmd, t_msh *msh)
 	t_builtin	builtin;
 
 	builtin = get_builtin(cmd->argv[0]);
+	reset_sig(SIGINT);
+	reset_sig(SIGQUIT);
 	if (!builtin)
 		return ;
 	status = builtin(cmd->argv, msh);
@@ -44,14 +56,14 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 		safe_dup2(fd.pipe[1], STDOUT_FILENO);
 	}
 	safe_dup2(fd.in, STDIN_FILENO);
-	if (!init_redirects(*cmd, msh->envp))
+	if (!init_redirects(*cmd, *msh))
 	{
 		exec_builtin(cmd, msh);
 		exec_bin(cmd, msh);
 	}
 	free_cmds(msh->cmds, msh->n_cmds);
 	destroy_msh(*msh);
-	exit(EXIT_FAILURE);
+	exit(g_status);
 }
 
 bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)

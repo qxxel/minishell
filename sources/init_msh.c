@@ -6,7 +6,7 @@
 /*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:10:06 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/24 12:07:58 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:05:22 by deydoux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ bool	init_msh(char **envp, t_msh *msh)
 {
 	bool	status;
 
+	ignore_sig(SIGINT);
+	ignore_sig(SIGQUIT);
 	ft_bzero(msh, sizeof(*msh));
 	dup_std_fd(msh->fd);
 	status = init_envp(envp, &msh->envp) || restore_pwd_env(msh)
