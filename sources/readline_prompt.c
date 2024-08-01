@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline_prompt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:54:32 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 16:03:30 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:48:19 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*generate_prompt(t_msh msh)
 	{
 		path = getcwd(NULL, 0);
 		if (!path)
-			return (ft_strdup(".$ "));
+			return (NULL);
 		prompt = ft_strjoin(path, "$ ");
 		free(path);
 		return (prompt);
