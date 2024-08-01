@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_commons.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:17:11 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/26 15:43:38 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:54:36 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
-# include <sys/ioctl.h>
-# include <sys/resource.h>
-# include <sys/stat.h>
-# include <sys/time.h>
-# include <sys/types.h>
 # include <sys/wait.h>
-# include <termios.h>
 # include <unistd.h>
 
 # include "libft.h"
