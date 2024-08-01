@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:22:29 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/27 02:17:25 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:28:38 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,16 @@ static bool	exec_cmd_child(t_cmd *cmd, bool last, t_exec_fd fd, t_msh *msh)
 
 bool	exec_cmd(t_cmd *cmd, bool last, t_exec_fd *fd, t_msh *msh)
 {
+	bool	status;
+
 	if (!last && pipe(fd->pipe))
 	{
 		perror("pipe");
 		return (true);
 	}
-	exec_cmd_child(cmd, last, *fd, msh);
+	status = exec_cmd_child(cmd, last, *fd, msh);
 	safe_close(&fd->in);
 	fd->in = fd->pipe[0];
 	safe_close(&fd->pipe[1]);
-	return (false);
+	return (status);
 }
