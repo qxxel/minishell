@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:04:18 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/25 17:44:39 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:34:56 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int argc, char **argv, char **envp)
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
 		}
-		add_history(str);
+		if (str[0])
+			add_history(str);
 		if (!parse_cmds(str, &msh))
 			status = exec_cmds(&msh);
 		free_cmds(msh.cmds, msh.n_cmds);
