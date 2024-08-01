@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deydoux <deydoux@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: agerbaud <agerbaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:02:24 by deydoux           #+#    #+#             */
-/*   Updated: 2024/07/22 19:06:58 by deydoux          ###   ########.fr       */
+/*   Updated: 2024/08/01 12:47:27 by agerbaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ typedef struct s_msh
 	char	**paths;
 	char	*pwd;
 	int		fd[2];
+	pid_t	pid;
 	size_t	n_cmds;
 	t_cmd	*cmds;
 	t_list	*declare;
-	pid_t	pid;
 }	t_msh;
 
 #endif
