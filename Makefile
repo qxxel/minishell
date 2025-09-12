@@ -46,7 +46,7 @@ SOURCES				=	builtins/ft_cd.c				\
 LIBFT_DIR			=	libft
 SOURCES_DIR			=	sources
 INCLUDE_DIR			=	include
-BUILD_DIR			=	build
+BUILD_DIR			=	.build
 
 CC					=	cc
 CFLAGS				=	-I$(INCLUDE_DIR) -MD -Wall -Wextra -Werror -g

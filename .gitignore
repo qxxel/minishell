@@ -1,2 +1,7 @@
 /build
 /minishell
+.gitea
+.vscode
+.build
+libft/libft.a
+libft/.build/

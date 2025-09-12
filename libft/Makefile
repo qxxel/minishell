@@ -2,7 +2,7 @@ NAME				=	libft.a
 
 SOURCES_DIR			=	sources
 INCLUDE_DIR			=	include
-BUILD_DIR			=	build
+BUILD_DIR			=	.build
 
 SOURCES				=	free_nptr.c					\
 						ft_abs.c					\
