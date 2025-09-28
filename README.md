@@ -10,6 +10,7 @@
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Directories structure](#directories-structure)
+- [Ressources](#ressources)
 - [Author](#author)
 
 ---
